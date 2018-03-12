@@ -95,7 +95,11 @@ export class ClassroomComponent implements OnInit {
   subscribeToClassroom(classroomName){
     this.authService.subscribeClassroom(classroomName)
       .then(
-        (res)=>{console.log("user has subscribed toclassroom "+classroomName);}
+        (res)=>{
+          console.log("user has subscribed toclassroom "+classroomName);
+          this.userClassroom = classroomName;
+          this.loadListofSnippets();
+        }
       )
   }
 

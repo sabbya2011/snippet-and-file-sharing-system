@@ -1,3 +1,9 @@
+<!-- <div *ngIf="userClassroom">
+  You are subscribed to Classroom {{userClassroom}}
+</div>
+<div #no_classroom_subscribed>
+  You are not subscribed to any Classroom
+</div> -->
 <div *ngIf="sameClassroomExists">This Classroom name is already present</div>
 <form (ngSubmit)="onValidateForm(f)" #f="ngForm">
   <div class="form-group">

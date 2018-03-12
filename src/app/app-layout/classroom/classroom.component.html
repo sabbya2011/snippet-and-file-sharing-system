@@ -1,0 +1,54 @@
+<div *ngIf="sameClassroomExists">This Classroom name is already present</div>
+<form (ngSubmit)="onValidateForm(f)" #f="ngForm">
+  <div class="form-group">
+    <label for="cls_name">Classroom Name</label>
+    <input type="text" id="cls_name" name="cls_name" ngModel>
+  </div>
+  <button type="submit" class="btn btn-primary">Create Classroom</button>
+</form>
+<h4>List of Classrooms</h4>
+<ul>
+  <li *ngFor="let classroom of allClassroomData">
+    <span>{{ classroom.name }}</span>
+    <button (click)="subscribeToClassroom(classroom.name)" >Subscribe Now</button>
+  </li>
+</ul>
+
+<h4>Create new Snippet</h4>
+<form (ngSubmit)="createSnippet(f_snippet)" #f_snippet="ngForm">
+  <div class="form-group">
+    <label for="snippet_name">Snippet Header</label>
+    <input type="text" id="snippet_name" name="snippet_name" ngModel>
+  </div>
+  <div class="form-group">
+    <label for="snippet_body">Snippet Body</label>
+    <input id="snippet_body" name="snippet_body" ngModel>
+  </div>
+  <button type="submit" class="btn btn-primary">Create Snippet</button>
+</form>
+
+<h4>Snippet List</h4>
+<div class="col-md-5 col-sm-6 col-xs-12" *ngFor="let snippet of snippetList">
+  <div class="header-card">
+    {{snippet.header}}
+  </div>
+  <div class="body-card">
+    {{snippet.body}}
+  </div>
+  <button (click)="populateUpdateSnippet(f_update_snippet,snippet)">Update Snippet</button>
+</div>
+
+<div *ngIf="updateSnippetFlag">
+  <h4>Update Snippet</h4>
+  <form (ngSubmit)="updateSnippet(f_update_snippet)" #f_update_snippet="ngForm">
+    <div class="form-group">
+      <label for="snippet_name">Snippet Header</label>
+      <input type="text" id="snippet_name" name="snippet_name" ngModel>
+    </div>
+    <div class="form-group">
+      <label for="snippet_body">Snippet Body</label>
+      <input id="snippet_body" name="snippet_body" ngModel>
+    </div>
+    <button type="submit" class="btn btn-primary">Update Snippet</button>
+  </form>
+</div>

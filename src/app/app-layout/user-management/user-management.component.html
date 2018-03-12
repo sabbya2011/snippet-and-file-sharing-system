@@ -1,0 +1,15 @@
+<h4>Pending Users</h4>
+<ul>
+  <li *ngFor="let pendingUser of pendingUsersData">
+    {{pendingUser.displayName}}
+    <br/>
+    <button (click)="activateUser(pendingUser.userId)">Activate User</button>
+  </li>
+</ul>
+
+<h4>Activated Users</h4>
+<ul>
+  <li *ngFor="let activeUser of activeUsersData">
+    {{activeUser.displayName}}
+  </li>
+</ul>

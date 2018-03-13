@@ -27,13 +27,16 @@ export class ClassroomComponent implements OnInit {
     
   }
 
+  getClassroomSubscriptionInfoofUser(){
+    return this.userClassroom?true:false;
+  }
+
   getUserClassroom(){
     return this.authService.getUserInfo()
       .then(
         (res)=>{
           res = res.val();
           this.userClassroom = res["classroom"];
-         
         }
       )
   }

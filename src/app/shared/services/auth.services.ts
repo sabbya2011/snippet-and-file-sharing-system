@@ -92,4 +92,7 @@ export class AuthService{
     updateSnippet(classroomName,snippetId,snippet){
         return this.database.ref('classroomSnippets/'+classroomName+'/'+snippetId).set(snippet);
     }
+    removeSnippet(classroomName,snippetId){
+        return this.database.ref('classroomSnippets/'+classroomName+'/'+snippetId).remove();
+    }
 }

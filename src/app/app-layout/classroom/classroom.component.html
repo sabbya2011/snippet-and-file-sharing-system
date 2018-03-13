@@ -28,7 +28,7 @@
   </div>
   <div class="form-group">
     <label for="snippet_body">Snippet Body</label>
-    <input id="snippet_body" name="snippet_body" ngModel>
+    <textarea id="snippet_body" name="snippet_body" ngModel></textarea>
   </div>
   <button type="submit" class="btn btn-primary">Create Snippet</button>
 </form>
@@ -41,10 +41,11 @@
   <div class="body-card">
     {{snippet.body}}
   </div>
-  <button (click)="populateUpdateSnippet(f_update_snippet,snippet)">Update Snippet</button>
+  <button class="btn btn-success" (click)="populateUpdateSnippet(snippet)">Update Snippet</button>
+  <button class="btn btn-danger" (click)="deleteSnippet(snippet)">Delete Snippet</button>
 </div>
 
-<div *ngIf="updateSnippetFlag">
+<div >
   <h4>Update Snippet</h4>
   <form (ngSubmit)="updateSnippet(f_update_snippet)" #f_update_snippet="ngForm">
     <div class="form-group">
@@ -53,7 +54,7 @@
     </div>
     <div class="form-group">
       <label for="snippet_body">Snippet Body</label>
-      <input id="snippet_body" name="snippet_body" ngModel>
+      <textarea id="snippet_body" name="snippet_body" ngModel></textarea>
     </div>
     <button type="submit" class="btn btn-primary">Update Snippet</button>
   </form>

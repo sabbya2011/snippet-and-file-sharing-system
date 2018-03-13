@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../../shared/services/auth.services';
+
 
 @Component({
   selector: 'app-classroom',
@@ -14,6 +15,9 @@ export class ClassroomComponent implements OnInit {
   snippetList : any[] = [];
   sameClassroomExists : boolean = false;
   userClassroom;
+
+  @ViewChild('f_update_snippet') updateSnippetForm : NgForm;
+
   constructor(private authService : AuthService) { }
 
   ngOnInit() {
@@ -149,10 +153,13 @@ export class ClassroomComponent implements OnInit {
     }
   }
 
-  populateUpdateSnippet(form:NgForm,snippet){
+  populateUpdateSnippet(snippet){
     this.updateSnippetFlag = true;
-    form.value.snippet_name = snippet.header;
-    form.value.snippet_body = snippet.body;
+    this.updateSnippetForm.setValue(
+      {snippet_name:snippet.header,
+        snippet_body : snippet.body
+      }
+    );
     this.activeSnippetId = snippet.snippetId;
   }
 
@@ -161,15 +168,19 @@ export class ClassroomComponent implements OnInit {
       header:form.value.snippet_name,
       body:form.value.snippet_body
     };
-    this.getUserClassroom().then(
-      ()=>{
-        this.authService.updateSnippet(this.userClassroom,this.activeSnippetId,snippet)
-          .then(
-            ()=>{
-              this.loadListofSnippets();             
-            }
-          )
-      }
-    );
+    this.authService.updateSnippet(this.userClassroom,this.activeSnippetId,snippet)
+      .then(
+        ()=>{
+          this.loadListofSnippets();             
+        }
+      )
+  }
+  deleteSnippet(snippet){
+    this.authService.removeSnippet(this.userClassroom,snippet.snippetId)
+      .then(
+        ()=>{
+          this.loadListofSnippets();
+        }
+      )
   }
 }

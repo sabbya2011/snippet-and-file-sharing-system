@@ -9,6 +9,7 @@ import { AuthService } from '../../shared/services/auth.services';
   styleUrls: ['./classroom.component.css']
 })
 export class ClassroomComponent implements OnInit {
+  userAccessibility : boolean = false;
   activeSnippetId : string;
   updateSnippetFlag : boolean = false;
   allClassroomData : any[] = [];
@@ -21,6 +22,7 @@ export class ClassroomComponent implements OnInit {
   constructor(private authService : AuthService) { }
 
   ngOnInit() {
+    this.userAccessibility = this.authService.getUserAdminPriviledge();
     this.createClassroomList();
     this.getUserClassroom()
       .then(
@@ -28,7 +30,6 @@ export class ClassroomComponent implements OnInit {
           this.loadListofSnippets();
         }
       )
-    
   }
 
   getClassroomSubscriptionInfoofUser(){

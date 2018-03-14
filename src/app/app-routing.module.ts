@@ -11,6 +11,7 @@ import { AppLayoutComponent } from "./app-layout/app-layout.component";
 import { AuthGuard } from "./shared/guard/auth-guard.service";
 import { UserManagementComponent } from "./app-layout/user-management/user-management.component";
 import { ClassroomComponent } from "./app-layout/classroom/classroom.component";
+import { AdminGuard } from "./shared/guard/admin-guard.service";
 const appRoutes: Routes = [
     {
         path:'',
@@ -31,9 +32,13 @@ const appRoutes: Routes = [
         component:AppLayoutComponent,
         canActivate:[AuthGuard],
         children:[
-            {path:'user-management',component:UserManagementComponent},
+            {
+                path:'user-management',
+                component:UserManagementComponent,
+                canActivate:[AdminGuard]
+            },
             {path:'classroom',component:ClassroomComponent},
-            {path:'',redirectTo:'user-management',pathMatch:'full'}
+            {path:'',redirectTo:'classroom',pathMatch:'full'}
         ]
     },
     {

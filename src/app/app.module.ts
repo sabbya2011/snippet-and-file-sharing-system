@@ -18,6 +18,7 @@ import { FooterComponent } from './shared/component/footer/footer.component';
 import { AuthGuard } from './shared/guard/auth-guard.service';
 import { UserManagementComponent } from './app-layout/user-management/user-management.component';
 import { ClassroomComponent } from './app-layout/classroom/classroom.component';
+import { AdminGuard } from './shared/guard/admin-guard.service';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { ClassroomComponent } from './app-layout/classroom/classroom.component';
   providers: [
     AuthService,
     MsgService,
-    AuthGuard
+    AuthGuard,
+    AdminGuard
   ],
   bootstrap: [AppComponent]
 })

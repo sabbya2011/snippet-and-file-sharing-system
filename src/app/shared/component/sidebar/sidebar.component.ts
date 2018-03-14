@@ -1,3 +1,4 @@
+import { AuthService } from './../../services/auth.services';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,10 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
-
-  constructor() { }
+  userAccessibility : boolean = false;
+  constructor(private authService : AuthService) { }
 
   ngOnInit() {
+    this.userAccessibility = this.authService.getUserAdminPriviledge();
   }
 
 }

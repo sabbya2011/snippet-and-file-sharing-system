@@ -7,6 +7,7 @@ import { Http, Headers } from '@angular/http';
 export class AuthService{
     userActivationStatus : boolean = false;
     database = firebase.database();
+    userAdminPriviledge : boolean = false;
 
     constructor(private msgService:MsgService,private http: Http){}
     
@@ -52,6 +53,15 @@ export class AuthService{
         return firebase.database().ref('/users/' + userId).once('value');
     }
     
+    setUserAdminPriviledge(userData){
+        if(userData.role=="SupremeLeader")
+            this.userAdminPriviledge = true;
+    }
+
+    getUserAdminPriviledge() : boolean{
+        return this.userAdminPriviledge;
+    }
+
     checkUserActivationStatus(userData){
         this.userActivationStatus = userData.activated;
         return userData.activated;

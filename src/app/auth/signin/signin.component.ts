@@ -36,6 +36,7 @@ export class SigninComponent implements OnInit {
     }
     checkUserValidity(userData){
       if(this.authService.checkUserActivationStatus(userData)){
+        this.authService.setUserAdminPriviledge(userData);
         this.router.navigate(["/processed-login"]);
       }else{
         this.flagActive = true;

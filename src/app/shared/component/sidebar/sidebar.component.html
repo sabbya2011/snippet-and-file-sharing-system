@@ -1,7 +1,7 @@
 <nav class="sidebar-container">
   <ul class="navigator-container">
-    <li>
-      <a routerLink="/processed-login/user-management">User Management</a>
+    <li *ngIf="userAccessibility">
+      <a  routerLink="/processed-login/user-management">User Management</a>
     </li>
     <li>
       <a routerLink="/processed-login/classroom">Classroom</a>

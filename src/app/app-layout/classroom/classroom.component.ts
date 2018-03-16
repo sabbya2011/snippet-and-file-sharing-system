@@ -35,6 +35,10 @@ export class ClassroomComponent implements OnInit {
   getClassroomSubscriptionInfoofUser(){
     return this.userClassroom?true:false;
   }
+  
+  checkExistingClassroom(classroom){
+    return this.userClassroom==classroom?true:false;
+  }
 
   getUserClassroom(){
     return this.authService.getUserInfo()

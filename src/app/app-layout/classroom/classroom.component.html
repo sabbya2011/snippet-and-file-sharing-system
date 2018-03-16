@@ -1,7 +1,7 @@
 <div *ngIf="getClassroomSubscriptionInfoofUser()">
   You are subscribed to Classroom {{userClassroom}}
 </div>
-<div #no_classroom_subscribed>
+<div *ngIf="!getClassroomSubscriptionInfoofUser()">
   You are not subscribed to any Classroom
 </div>
 
@@ -18,7 +18,7 @@
 <ul>
   <li *ngFor="let classroom of allClassroomData">
     <span>{{ classroom.name }}</span>
-    <button (click)="subscribeToClassroom(classroom.name)" >Subscribe Now</button>
+    <button (click)="subscribeToClassroom(classroom.name)" [disabled]="checkExistingClassroom(classroom.name)">Subscribe Now</button>
   </li>
 </ul>
 

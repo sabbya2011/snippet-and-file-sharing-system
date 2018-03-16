@@ -77,6 +77,11 @@ export class AuthService{
         return fb.child('users/'+uid).update(updateData);
         //return firebase.database().ref('/users/'+uid).set({activated:true});
     }
+    
+    
+    
+    
+    
     getAllClassrooms(){
         return this.database.ref('/classroomNames').once('value');
     }
@@ -99,10 +104,29 @@ export class AuthService{
     loadClassroomSpecificSnippets(classroomName){
         return this.database.ref('classroomSnippets/'+classroomName).once('value');
     }
-    updateSnippet(classroomName,snippetId,snippet){
+    updateSnippetFromClassroom(classroomName,snippetId,snippet){
         return this.database.ref('classroomSnippets/'+classroomName+'/'+snippetId).set(snippet);
     }
-    removeSnippet(classroomName,snippetId){
+    removeSnippetFromClassroom(classroomName,snippetId){
         return this.database.ref('classroomSnippets/'+classroomName+'/'+snippetId).remove();
+    }
+
+
+
+    getUserspecificSnippets(){
+        const uid = firebase.auth().currentUser.uid;
+        return this.database.ref('privateKeep/'+uid).once('value');
+    }
+    createPrivateSnippet(snippet){
+        const uid = firebase.auth().currentUser.uid;
+        return this.database.ref('privateKeep/'+uid).push().set(snippet);
+    }
+    updatePrivateSnippet(snippetId,snippet){
+        const uid = firebase.auth().currentUser.uid;
+        return this.database.ref('privateKeep/'+uid+'/'+snippetId).set(snippet);
+    }
+    removePrivateSnippet(snippetId){
+        const uid = firebase.auth().currentUser.uid;
+        return this.database.ref('privateKeep/'+uid+'/'+snippetId).remove();
     }
 }

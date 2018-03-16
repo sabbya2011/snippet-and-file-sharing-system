@@ -19,6 +19,7 @@ import { AuthGuard } from './shared/guard/auth-guard.service';
 import { UserManagementComponent } from './app-layout/user-management/user-management.component';
 import { ClassroomComponent } from './app-layout/classroom/classroom.component';
 import { AdminGuard } from './shared/guard/admin-guard.service';
+import { PrivateStorageComponent } from './app-layout/private-storage/private-storage.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { AdminGuard } from './shared/guard/admin-guard.service';
     SidebarComponent,
     FooterComponent,
     UserManagementComponent,
-    ClassroomComponent
+    ClassroomComponent,
+    PrivateStorageComponent
   ],
   imports: [
     BrowserModule,

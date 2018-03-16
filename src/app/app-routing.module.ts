@@ -1,16 +1,18 @@
-
 import { NgModule } from "@angular/core";
 import { AppComponent } from './app.component';
 
 import { Routes, RouterModule } from '@angular/router';
+
 import { SigninComponent } from "./auth/signin/signin.component";
 import { SignupComponent } from "./auth/signup/signup.component";
 import { WelcomeUserComponent } from "./auth/welcome-user/welcome-user.component";
 import { NotFoundComponent } from "./not-found/not-found.component";
 import { AppLayoutComponent } from "./app-layout/app-layout.component";
-import { AuthGuard } from "./shared/guard/auth-guard.service";
 import { UserManagementComponent } from "./app-layout/user-management/user-management.component";
 import { ClassroomComponent } from "./app-layout/classroom/classroom.component";
+import { PrivateStorageComponent } from './app-layout/private-storage/private-storage.component';
+
+import { AuthGuard } from "./shared/guard/auth-guard.service";
 import { AdminGuard } from "./shared/guard/admin-guard.service";
 const appRoutes: Routes = [
     {
@@ -38,6 +40,7 @@ const appRoutes: Routes = [
                 canActivate:[AdminGuard]
             },
             {path:'classroom',component:ClassroomComponent},
+            {path:'storage',component:PrivateStorageComponent},
             {path:'',redirectTo:'classroom',pathMatch:'full'}
         ]
     },

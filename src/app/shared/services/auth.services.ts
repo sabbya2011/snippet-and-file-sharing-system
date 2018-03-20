@@ -147,10 +147,9 @@ export class AuthService{
 
     postSnippetAsSuggestion(classroomName,snippet){
         const publisher =this.getUserDisplayName();
-        const time = new Date();
         const importantSnippetInfo = {
             publisher:publisher,
-            time:time
+            time:firebase.database.ServerValue.TIMESTAMP
         }
         snippet = Object.assign(snippet,importantSnippetInfo);
         return this.database.ref('classroomSuggestions/'+classroomName).push().set(snippet);

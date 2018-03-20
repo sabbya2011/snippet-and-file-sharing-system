@@ -16,11 +16,14 @@ export class SuggestionBoxComponent implements OnInit {
     this.userAccessibility = this.authService.getUserAdminPriviledge();
     this.loadAllSnippets();
   }
+  
   addZero(number){
     return number<10?'0'+number:number.toString();
   }
+  
   evaluateTime(time){
     if(time){
+      time = new Date(time);
       const hour = this.addZero(time.getHours());
       const minute = this.addZero(time.getMinutes());
       return hour+':'+minute;
@@ -28,7 +31,7 @@ export class SuggestionBoxComponent implements OnInit {
       return '';
     }
   }
-
+  
   createSnippet(form:NgForm){
     const snippet = {
       header:form.value.snippet_name,

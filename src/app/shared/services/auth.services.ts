@@ -8,6 +8,7 @@ export class AuthService{
     userActivationStatus : boolean = false;
     database = firebase.database();
     userAdminPriviledge : boolean = false;
+    private userDisplayName : string = '';
 
     constructor(private msgService:MsgService,private http: Http){}
     
@@ -53,13 +54,22 @@ export class AuthService{
         return firebase.database().ref('/users/' + userId).once('value');
     }
     
-    setUserAdminPriviledge(userData){
-        if(userData.role=="SupremeLeader")
+    setUserInfo(userData){
+        this.setUserAdminPriviledge(userData.role);
+        this.userDisplayName = userData.displayName;
+    }
+
+    private setUserAdminPriviledge(role){
+        if(role=="SupremeLeader")
             this.userAdminPriviledge = true;
     }
 
     getUserAdminPriviledge() : boolean{
         return this.userAdminPriviledge;
+    }
+
+    getUserDisplayName(){
+        return this.userDisplayName;
     }
 
     checkUserActivationStatus(userData){
@@ -128,5 +138,24 @@ export class AuthService{
     removePrivateSnippet(snippetId){
         const uid = firebase.auth().currentUser.uid;
         return this.database.ref('privateKeep/'+uid+'/'+snippetId).remove();
+    }
+
+
+
+
+
+
+    postSnippetAsSuggestion(classroomName,snippet){
+        const publisher =this.getUserDisplayName();
+        const time = new Date();
+        const importantSnippetInfo = {
+            publisher:publisher,
+            time:time
+        }
+        snippet = Object.assign(snippet,importantSnippetInfo);
+        return this.database.ref('classroomSuggestions/'+classroomName).push().set(snippet);
+    }
+    retrieveClassroomSpecificSnippets(classroomName){
+        return this.database.ref('classroomSuggestions/'+classroomName).once("value")
     }
 }

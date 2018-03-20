@@ -63,8 +63,6 @@ export class ClassroomComponent implements OnInit {
                 this.allClassroomData.push(classroom);
               }
             );
-          }else{
-            this.allClassroomData = [];
           }
         }
       )

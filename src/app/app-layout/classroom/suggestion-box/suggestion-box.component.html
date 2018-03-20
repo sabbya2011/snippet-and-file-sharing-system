@@ -1,0 +1,26 @@
+<h4>Snippet List</h4>
+<div class="col-md-5 col-sm-6 col-xs-12" 
+  *ngFor="let snippet of snippetList">
+  <div class="header-card">
+    {{snippet.header}}
+  </div>
+  <div class="body-card">
+    {{snippet.body}}
+    {{snippet.publisher}}
+    {{evaluateTime(snippet.time)}}
+  </div>
+  
+</div>
+
+<h4>Create new Snippet</h4>
+<form (ngSubmit)="createSnippet(f_snippet)" #f_snippet="ngForm">
+  <div class="form-group">
+    <label for="snippet_name">Snippet Header</label>
+    <input type="text" id="snippet_name" name="snippet_name" ngModel>
+  </div>
+  <div class="form-group">
+    <label for="snippet_body">Snippet Body</label>
+    <textarea id="snippet_body" name="snippet_body" ngModel></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary">Create Snippet</button>
+</form>

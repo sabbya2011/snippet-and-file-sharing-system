@@ -11,6 +11,8 @@
   </div>
   <button *ngIf="userAccessibility" class="btn btn-primary" (click)="addToClassroomSnippet(snippet.header,snippet.body)">Add as a Classroom SNippet</button>
 </div>
+<button *ngIf="userAccessibility" class="btn btn-danger" (click)="clearAllSuggestions()">Delete All Suggestions</button>
+
 
 <h4>Create new Snippet</h4>
 <form (ngSubmit)="createSnippet(f_snippet)" #f_snippet="ngForm">

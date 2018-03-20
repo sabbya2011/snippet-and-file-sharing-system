@@ -157,4 +157,7 @@ export class AuthService{
     retrieveClassroomSpecificSnippets(classroomName){
         return this.database.ref('classroomSuggestions/'+classroomName).once("value")
     }
+    removeAllSuggestions(classroomName){
+        return this.database.ref('classroomSuggestions/'+classroomName).remove();
+    }
 }

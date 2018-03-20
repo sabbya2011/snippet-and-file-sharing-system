@@ -17,6 +17,15 @@ export class SuggestionBoxComponent implements OnInit {
     this.loadAllSnippets();
   }
   
+  clearSnippetForm(form:NgForm){
+      form.setValue(
+        {
+          snippet_body:'',
+          snippet_name:''
+        }
+      );
+  }
+
   addZero(number){
     return number<10?'0'+number:number.toString();
   }
@@ -37,6 +46,7 @@ export class SuggestionBoxComponent implements OnInit {
       header:form.value.snippet_name,
       body:form.value.snippet_body
     };   
+    this.clearSnippetForm(form);
     this.authService.getUserInfo()
       .then(
         (snapshot)=>{
@@ -70,13 +80,15 @@ export class SuggestionBoxComponent implements OnInit {
 
   createSnippetArray(snippets){
     this.snippetList = [];
+    let snippetsArray = [];
     if(snippets){
       Object.keys(snippets).forEach(
         (key)=>{
           const snippet = snippets[key];
-          this.snippetList.push(snippet);
+          snippetsArray.push(snippet);
         }
       );
+      this.snippetList = snippetsArray
     }
   }
 
@@ -97,5 +109,20 @@ export class SuggestionBoxComponent implements OnInit {
           )
       }
     );
+  }
+
+  clearAllSuggestions(){
+    this.authService.getUserInfo()
+    .then((res)=>{
+      res = res.val();
+      const userClassroom = res["classroom"];
+      this.authService.removeAllSuggestions(userClassroom)
+        .then(
+          ()=>{
+            this.loadAllSnippets();             
+          }
+        )
+    }
+  );
   }
 }

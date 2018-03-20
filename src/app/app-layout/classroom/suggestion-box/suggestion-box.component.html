@@ -1,6 +1,6 @@
 <h4>Snippet List</h4>
 <div class="col-md-5 col-sm-6 col-xs-12" 
-  *ngFor="let snippet of snippetList">
+  *ngFor="let snippet of snippetList" class="suggestion-card">
   <div class="header-card">
     {{snippet.header}}
   </div>
@@ -9,7 +9,7 @@
     {{snippet.publisher}}
     {{evaluateTime(snippet.time)}}
   </div>
-  
+  <button *ngIf="userAccessibility" class="btn btn-primary" (click)="addToClassroomSnippet(snippet.header,snippet.body)">Add as a Classroom SNippet</button>
 </div>
 
 <h4>Create new Snippet</h4>

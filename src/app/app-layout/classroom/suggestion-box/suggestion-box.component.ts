@@ -9,9 +9,11 @@ import { AuthService } from '../../../shared/services/auth.services';
 })
 export class SuggestionBoxComponent implements OnInit {
   snippetList : any[] = [];
+  userAccessibility : boolean = false;
   constructor(private authService : AuthService) { }
 
   ngOnInit() {
+    this.userAccessibility = this.authService.getUserAdminPriviledge();
     this.loadAllSnippets();
   }
   addZero(number){
@@ -73,5 +75,24 @@ export class SuggestionBoxComponent implements OnInit {
         }
       );
     }
+  }
+
+  addToClassroomSnippet(header,body){
+    const snippet = {
+      header:header,
+      body:body
+    }; 
+    this.authService.getUserInfo()
+      .then((res)=>{
+        res = res.val();
+        const userClassroom = res["classroom"];
+        this.authService.createClassroomSnippet(userClassroom,snippet)
+          .then(
+            ()=>{
+              this.loadAllSnippets();             
+            }
+          )
+      }
+    );
   }
 }

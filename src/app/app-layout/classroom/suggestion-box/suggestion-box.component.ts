@@ -41,21 +41,29 @@ export class SuggestionBoxComponent implements OnInit {
     }
   }
   
+  getUserClassroom(){
+    return this.authService.getUserInfo()
+      .then(
+        (snapshot)=>{
+          snapshot = snapshot.val();
+          const classroom = snapshot.classroom;
+          return snapshot;
+        }
+      )
+  }
+
   createSnippet(form:NgForm){
     const snippet = {
       header:form.value.snippet_name,
       body:form.value.snippet_body
     };   
     this.clearSnippetForm(form);
-    this.authService.getUserInfo()
+    this.getUserClassroom()
       .then(
-        (snapshot)=>{
-          snapshot = snapshot.val();
-          const classroom = snapshot.classroom;
+        (classroom)=>{
           this.authService.postSnippetAsSuggestion(classroom,snippet)
             .then(
               ()=>{
-                
                 this.loadAllSnippets();
               }
             )
@@ -63,11 +71,9 @@ export class SuggestionBoxComponent implements OnInit {
       )
   }
   loadAllSnippets(){
-    this.authService.getUserInfo()
+    this.getUserClassroom()
     .then(
-      (snapshot)=>{
-        snapshot = snapshot.val();
-        const classroom = snapshot.classroom;
+      (classroom)=>{
         this.authService.retrieveClassroomSpecificSnippets(classroom)
           .then(
             (res)=>{
@@ -88,7 +94,7 @@ export class SuggestionBoxComponent implements OnInit {
           snippetsArray.push(snippet);
         }
       );
-      this.snippetList = snippetsArray
+      this.snippetList = snippetsArray;
     }
   }
 
@@ -97,10 +103,8 @@ export class SuggestionBoxComponent implements OnInit {
       header:header,
       body:body
     }; 
-    this.authService.getUserInfo()
-      .then((res)=>{
-        res = res.val();
-        const userClassroom = res["classroom"];
+    this.getUserClassroom()
+      .then((userClassroom)=>{
         this.authService.createClassroomSnippet(userClassroom,snippet)
           .then(
             ()=>{
@@ -112,17 +116,15 @@ export class SuggestionBoxComponent implements OnInit {
   }
 
   clearAllSuggestions(){
-    this.authService.getUserInfo()
-    .then((res)=>{
-      res = res.val();
-      const userClassroom = res["classroom"];
-      this.authService.removeAllSuggestions(userClassroom)
-        .then(
-          ()=>{
-            this.loadAllSnippets();             
-          }
-        )
-    }
-  );
+    this.getUserClassroom()
+      .then((userClassroom)=>{
+        this.authService.removeAllSuggestions(userClassroom)
+          .then(
+            ()=>{
+              this.loadAllSnippets();             
+            }
+          )
+      }
+    );
   }
 }

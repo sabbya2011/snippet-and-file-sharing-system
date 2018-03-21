@@ -9,7 +9,9 @@
     {{snippet.publisher}}
     {{evaluateTime(snippet.time)}}
   </div>
-  <button *ngIf="userAccessibility" class="btn btn-primary" (click)="addToClassroomSnippet(snippet.header,snippet.body)">Add as a Classroom SNippet</button>
+  <button *ngIf="userAccessibility" 
+    class="btn btn-primary" 
+    (click)="addToClassroomSnippet(snippet.header,snippet.body)">Add as a Classroom Snippet</button>
 </div>
 <button *ngIf="userAccessibility" class="btn btn-danger" (click)="clearAllSuggestions()">Delete All Suggestions</button>
 

@@ -46,8 +46,7 @@ export class SuggestionBoxComponent implements OnInit {
       .then(
         (snapshot)=>{
           snapshot = snapshot.val();
-          const classroom = snapshot.classroom;
-          return snapshot;
+          return snapshot.classroom;
         }
       )
   }

@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-user-personal-details',
   templateUrl: './user-personal-details.component.html',
-  styleUrls: ['./user-personal-details.component.css']
+  styleUrls: ['./user-personal-details.component.scss']
 })
 export class  UserPersonalDetailsComponent implements OnInit {
 

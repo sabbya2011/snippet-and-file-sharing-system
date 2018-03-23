@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -24,6 +25,10 @@ import { SuggestionBoxComponent } from './app-layout/classroom/suggestion-box/su
 import { UserPersonalDetailsComponent } from './app-layout/user-personal-details/user-personal-details.component';
 
 
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatInputModule} from '@angular/material/input';
+import {MatButtonModule} from '@angular/material/button';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,10 +48,15 @@ import { UserPersonalDetailsComponent } from './app-layout/user-personal-details
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     HttpModule,
     FormsModule,
     ReactiveFormsModule,
+
+    MatTabsModule,
+    MatInputModule,
+    MatButtonModule
   ],
   providers: [
     AuthService,

@@ -6,7 +6,7 @@ import { AuthService } from '../../shared/services/auth.services';
 @Component({
   selector: 'app-classroom',
   templateUrl: './classroom.component.html',
-  styleUrls: ['./classroom.component.css']
+  styleUrls: ['./classroom.component.scss']
 })
 export class ClassroomComponent implements OnInit {
   userAccessibility : boolean = false;

@@ -1,0 +1,12 @@
+$activeRouteColor:#3cb3e7;
+$white:#ffffff;
+nav{
+    a{
+        border-bottom: 3px solid $white;  
+    }
+    .active{
+        border-bottom: 3px solid $activeRouteColor;
+        transition: .5s all;
+        background-color: rgba(0,0,0,0.1);
+    }
+}

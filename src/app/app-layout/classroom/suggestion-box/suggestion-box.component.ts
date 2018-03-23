@@ -5,7 +5,7 @@ import { AuthService } from '../../../shared/services/auth.services';
 @Component({
   selector: 'app-suggestion-box',
   templateUrl: './suggestion-box.component.html',
-  styleUrls: ['./suggestion-box.component.css']
+  styleUrls: ['./suggestion-box.component.scss']
 })
 export class SuggestionBoxComponent implements OnInit {
   snippetList : any[] = [];

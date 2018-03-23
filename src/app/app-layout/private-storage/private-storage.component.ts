@@ -6,7 +6,7 @@ import { ViewChild } from '@angular/core';
 @Component({
   selector: 'app-private-storage',
   templateUrl: './private-storage.component.html',
-  styleUrls: ['./private-storage.component.css']
+  styleUrls: ['./private-storage.component.scss']
 })
 export class PrivateStorageComponent implements OnInit {
   snippetList : any[] = [];

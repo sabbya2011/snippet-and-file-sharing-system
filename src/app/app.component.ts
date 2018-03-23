@@ -13,8 +13,8 @@ export class AppComponent implements OnInit{
     firebase.initializeApp({
       apiKey: environment.apiKey,
       authDomain: environment.authDomain,
-      databaseURL: environment.databaseURL
+      databaseURL: environment.databaseURL,
+      storageBucket : environment.storageBucket
     });
-    var storage = firebase.storage();
   }
 }

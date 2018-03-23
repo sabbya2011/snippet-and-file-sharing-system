@@ -21,4 +21,10 @@
 </textarea>
 
 
+<label>Update User profile picture</label>
+<input type="file" #profilePhoto (change)="updateUserProfilePicture($event.target.files)"/>
+
+<img [src]="profilePicture.url" alt="" srcset="">
+
+
 

@@ -1,0 +1,9 @@
+div{
+    background-color:#3cb3e7;
+}
+img{
+    height:50px;
+    border-radius: 50%;
+    border:2px solid #020d11;
+    float: right;
+}

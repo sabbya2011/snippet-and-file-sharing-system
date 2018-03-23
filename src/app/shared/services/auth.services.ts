@@ -6,6 +6,7 @@ import { Http, Headers } from '@angular/http';
 @Injectable()
 export class AuthService{
     userDetails;
+    profilePicture={url:""};
     userActivationStatus : boolean = false;
     database = firebase.database();
     userAdminPriviledge : boolean = false;
@@ -170,5 +171,28 @@ export class AuthService{
             this.userDetails = res;
             return this.userDetails;
         })
+    }
+    updateProfilePhoto(file:File){
+        const fileExt = file.name.split(".")[1];
+        let metadata;
+        if(fileExt=="jpg"){
+            metadata = {
+                contentType: 'image/jpeg',
+            };
+        }else if(fileExt=="png"){
+            metadata = {
+                contentType: 'image/png',
+            };
+        }
+        const storageref = firebase.storage().ref().child('ProfilePicture/profilePhoto');
+        return storageref.put(file,metadata);
+    }
+    getProfilePhoto(){
+        const storageref = firebase.storage().ref().child('ProfilePicture/profilePhoto');
+        return storageref.getDownloadURL().then((url)=>{
+            this.profilePicture.url = url;
+          }).catch((error)=>{
+            this.profilePicture.url = '';
+          });
     }
 }

@@ -27,6 +27,7 @@ export class SigninComponent implements OnInit {
           (res)=>{
             this.authService.updateUserInfo()
             .then((userData) => {
+                this.authService.getProfilePhoto();
                 this.checkUserValidity(userData);
             });  
           },

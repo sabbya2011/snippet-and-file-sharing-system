@@ -1,3 +1,4 @@
+import { AuthService } from './../../services/auth.services';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
@@ -8,11 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
+  profilePicture;
+
   constructor(
-    private router:Router
+    private router:Router,
+    private authService:AuthService
   ) { }
 
   ngOnInit() {
+    this.profilePicture = this.authService.profilePicture;
   }
   goToManageUser(){
     this.router.navigate(["processed-login","user"]);

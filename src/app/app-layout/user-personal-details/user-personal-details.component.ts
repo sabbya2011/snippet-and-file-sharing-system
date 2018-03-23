@@ -9,13 +9,15 @@ import { Component, OnInit } from '@angular/core';
 export class  UserPersonalDetailsComponent implements OnInit {
 
   userDetails;
+  profilePicture;
   
   constructor(
     private authService:AuthService
   ) { }
 
   ngOnInit() {
-    this.getUserInfo();  
+    this.getUserInfo(); 
+    this.profilePicture = this.authService.profilePicture;
   }
 
   getUserInfo(){
@@ -33,6 +35,15 @@ export class  UserPersonalDetailsComponent implements OnInit {
             }
           )
       })
+  }
+  updateUserProfilePicture(files:FileList){
+    let fileItem = files.item(0);
+    this.authService.updateProfilePhoto(fileItem)
+      .then(
+        ()=>{
+          this.authService.getProfilePhoto()
+        }
+      )
   }
 
 }

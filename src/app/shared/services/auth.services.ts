@@ -5,6 +5,7 @@ import { Http, Headers } from '@angular/http';
 
 @Injectable()
 export class AuthService{
+    userDetails;
     userActivationStatus : boolean = false;
     database = firebase.database();
     userAdminPriviledge : boolean = false;
@@ -54,12 +55,8 @@ export class AuthService{
         return firebase.database().ref('/users/' + userId).once('value');
     }
     
-    setUserInfo(userData){
-        this.setUserAdminPriviledge(userData.role);
-        this.userDisplayName = userData.displayName;
-    }
-
-    private setUserAdminPriviledge(role){
+    
+    setUserAdminPriviledge(role){
         if(role=="SupremeLeader")
             this.userAdminPriviledge = true;
     }
@@ -69,7 +66,7 @@ export class AuthService{
     }
 
     getUserDisplayName(){
-        return this.userDisplayName;
+        return this.userDetails.userDisplayName;
     }
 
     checkUserActivationStatus(userData){
@@ -159,5 +156,19 @@ export class AuthService{
     }
     removeAllSuggestions(classroomName){
         return this.database.ref('classroomSuggestions/'+classroomName).remove();
+    }
+
+
+
+    updateUserProperties(value,key){
+        const uid = firebase.auth().currentUser.uid;
+        return this.database.ref('users/'+uid+'/'+key).set(value);
+    }
+    updateUserInfo(){
+        return this.getUserInfo().then((res)=>{
+            res = res.val();
+            this.userDetails = res;
+            return this.userDetails;
+        })
     }
 }

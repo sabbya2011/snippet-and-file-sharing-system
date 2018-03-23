@@ -21,6 +21,7 @@ import { ClassroomComponent } from './app-layout/classroom/classroom.component';
 import { AdminGuard } from './shared/guard/admin-guard.service';
 import { PrivateStorageComponent } from './app-layout/private-storage/private-storage.component';
 import { SuggestionBoxComponent } from './app-layout/classroom/suggestion-box/suggestion-box.component';
+import { UserPersonalDetailsComponent } from './app-layout/user-personal-details/user-personal-details.component';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { SuggestionBoxComponent } from './app-layout/classroom/suggestion-box/su
     UserManagementComponent,
     ClassroomComponent,
     PrivateStorageComponent,
-    SuggestionBoxComponent
+    SuggestionBoxComponent,
+    UserPersonalDetailsComponent
   ],
   imports: [
     BrowserModule,

@@ -15,5 +15,6 @@ export class AppComponent implements OnInit{
       authDomain: environment.authDomain,
       databaseURL: environment.databaseURL
     });
+    var storage = firebase.storage();
   }
 }

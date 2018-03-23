@@ -1,0 +1,24 @@
+<h3>Welcome user {{ userDetails.displayName }}</h3>
+<input type="text" #displayNameInput 
+  [value]="userDetails.displayName" 
+  (blur)="updateUserDetails(displayNameInput,'displayName')"/>
+
+<select #userGender 
+  [value]="userDetails.gender?userDetails.gender:''"
+  (change)="updateUserDetails(userGender,'gender')">
+  <option>Female</option>
+  <option>Male</option>
+  <option>Others</option>
+</select>
+
+<input type="text" #displayPhoneNumber 
+  [value]="userDetails.contact?userDetails.contact:''" 
+  (blur)="updateUserDetails(displayPhoneNumber,'contact')"/>
+
+<textarea type="text" #displayAbout 
+  [value]="userDetails.about?userDetails.about:''" 
+  (blur)="updateUserDetails(displayAbout,'about')">
+</textarea>
+
+
+

@@ -25,9 +25,9 @@ export class SigninComponent implements OnInit {
       this.authService.loginUser(email,password)
         .then(
           (res)=>{
-            this.authService.getUserInfo()
-            .then((snapshot) => {
-                this.checkUserValidity(snapshot.val());
+            this.authService.updateUserInfo()
+            .then((userData) => {
+                this.checkUserValidity(userData);
             });  
           },
           (error)=>{console.log(error)}
@@ -36,8 +36,8 @@ export class SigninComponent implements OnInit {
     }
     checkUserValidity(userData){
       if(this.authService.checkUserActivationStatus(userData)){
-        this.authService.setUserInfo(userData);
-        this.router.navigate(["/processed-login"]);
+        this.authService.setUserAdminPriviledge(userData.role);
+        this.router.navigate(["processed-login"]);
       }else{
         this.flagActive = true;
         setTimeout(()=>{

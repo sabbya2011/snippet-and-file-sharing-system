@@ -12,7 +12,7 @@ export class AdminGuard implements CanActivate{
         if(adminPriviledge){
             return true;
         }else{
-            this.router.navigate(['welcome-user/login']);
+            this.router.navigate(['welcome-user','login']);
             return false;
         }
     }

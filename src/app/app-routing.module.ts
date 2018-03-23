@@ -14,6 +14,7 @@ import { PrivateStorageComponent } from './app-layout/private-storage/private-st
 
 import { AuthGuard } from "./shared/guard/auth-guard.service";
 import { AdminGuard } from "./shared/guard/admin-guard.service";
+import { UserPersonalDetailsComponent } from "./app-layout/user-personal-details/user-personal-details.component";
 const appRoutes: Routes = [
     {
         path:'',
@@ -41,6 +42,7 @@ const appRoutes: Routes = [
             },
             {path:'classroom',component:ClassroomComponent},
             {path:'storage',component:PrivateStorageComponent},
+            {path:'user',component:UserPersonalDetailsComponent},
             {path:'',redirectTo:'storage',pathMatch:'full'}
         ]
     },

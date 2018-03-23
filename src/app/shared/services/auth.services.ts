@@ -184,11 +184,13 @@ export class AuthService{
                 contentType: 'image/png',
             };
         }
-        const storageref = firebase.storage().ref().child('ProfilePicture/profilePhoto');
+        const uid = firebase.auth().currentUser.uid;
+        const storageref = firebase.storage().ref().child('ProfilePicture/'+uid+'/profilePhoto');
         return storageref.put(file,metadata);
     }
     getProfilePhoto(){
-        const storageref = firebase.storage().ref().child('ProfilePicture/profilePhoto');
+        const uid = firebase.auth().currentUser.uid;
+        const storageref = firebase.storage().ref().child('ProfilePicture/'+uid+'/profilePhoto');
         return storageref.getDownloadURL().then((url)=>{
             this.profilePicture.url = url;
           }).catch((error)=>{

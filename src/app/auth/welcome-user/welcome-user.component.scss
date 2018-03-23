@@ -1,8 +1,8 @@
 $activeRouteColor:#3cb3e7;
-$white:#ffffff;
+$transparent:transparent;
 nav{
     a{
-        border-bottom: 3px solid $white;  
+        border-bottom: 3px solid $transparent;  
     }
     .active{
         border-bottom: 3px solid $activeRouteColor;

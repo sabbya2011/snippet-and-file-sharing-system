@@ -17,7 +17,7 @@ import { AdminGuard } from "./shared/guard/admin-guard.service";
 const appRoutes: Routes = [
     {
         path:'',
-        redirectTo:'/welcome-user/login',
+        redirectTo:'welcome-user/login',
         pathMatch:'full'
     },
     {
@@ -41,7 +41,7 @@ const appRoutes: Routes = [
             },
             {path:'classroom',component:ClassroomComponent},
             {path:'storage',component:PrivateStorageComponent},
-            {path:'',redirectTo:'classroom',pathMatch:'full'}
+            {path:'',redirectTo:'storage',pathMatch:'full'}
         ]
     },
     {

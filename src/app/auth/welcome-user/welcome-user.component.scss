@@ -1,12 +1,83 @@
 $activeRouteColor:#3cb3e7;
 $transparent:transparent;
+@mixin container-size($props){
+    height:$props;
+    width:$props;
+}
+%font{
+    font-family: Roboto,"Helvetica Neue",sans-serif;
+    font-weight: 500;
+}
+%background-image{
+    background-image: url("/assets/images/mr-cup-fabien-barral-86068-unsplash.jpg");
+    background-repeat: no-repeat;
+    background-size:cover;
+}
+
+.background{
+    @extend %background-image;
+    position: absolute;
+    top: 0;
+    left: 0;
+    @include container-size(100%);
+    .background-filter{
+        background: linear-gradient(45deg, rgba(154,60,173,0.9), rgba(178,90,172,0.9));
+        @include container-size(100%);
+    }
+    .foreground{
+        position: relative;
+        @include container-size(55%);
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+    }
+}
+
+.sub-groups{
+    width: 50%;
+    height: 100%;
+    float: left;
+    background: white;
+    -webkit-box-shadow: 3px 1px 29px 0px;
+    box-shadow: 3px 1px 29px 0px;
+    display: flex;
+    flex-direction: column;
+    .foreground-image-container{
+        @extend %background-image;
+        @include container-size(100%);
+        .foreground-filter{
+            background-color:rgba(54,32,143,0.5);
+            @include container-size(100%);
+            position:relative;
+            span{
+                font-size: 45px;
+                color: #ffffff;
+                text-align: left;
+                display: inline-block;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 90%;
+                @extend %font;
+            }
+        }
+    }
+}
+
 nav{
     a{
         border-bottom: 3px solid $transparent;  
+        float:left;
+        width: 50%;
+        font-size:18px;
     }
     .active{
         border-bottom: 3px solid $activeRouteColor;
         transition: .5s all;
         background-color: rgba(0,0,0,0.1);
+        color:#333333 !important;
+        font-size:24px;
+        font-weight:bold;
     }
 }

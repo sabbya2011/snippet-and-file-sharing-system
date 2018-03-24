@@ -1,22 +1,24 @@
-<form class="example-form" (ngSubmit)="onSignUp(f)" #f="ngForm">
-  <mat-form-field class="example-full-width">
-    <input matInput placeholder="User Display Name" 
-      type="userName" id="userName" name="userName" ngModel>
-  </mat-form-field>
-  <br/>
-  <mat-form-field class="example-full-width">
-    <input matInput placeholder="E-Mail" type="email" id="email" name="email" ngModel>
-  </mat-form-field>
-  <br/>
-  <mat-form-field class="example-full-width">
-      <input matInput placeholder="Password" 
-        type="password" id="password" name="password" ngModel>
-  </mat-form-field>
-  <br/>
-  <mat-form-field class="example-full-width">
-      <input matInput placeholder="Confirm Password" 
-        type="confirm_password" id="confirm_password" name="confirm_password" ngModel>
-  </mat-form-field>
-  <br/>
-  <button mat-raised-button type="submit" class="btn btn-primary">Sign Up</button>
-</form>
+<div class="wrapper">
+  <form class="example-form" (ngSubmit)="onSignUp(f)" #f="ngForm">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="User Display Name" 
+        type="userName" id="userName" name="userName" ngModel>
+    </mat-form-field>
+    <br/>
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="E-Mail" type="email" id="email" name="email" ngModel>
+    </mat-form-field>
+    <br/>
+    <mat-form-field class="example-full-width">
+        <input matInput placeholder="Password" 
+          type="password" id="password" name="password" ngModel>
+    </mat-form-field>
+    <br/>
+    <mat-form-field class="example-full-width">
+        <input matInput placeholder="Confirm Password" 
+          type="confirm_password" id="confirm_password" name="confirm_password" ngModel>
+    </mat-form-field>
+    <br/>
+    <button mat-raised-button type="submit" class="btn btn-primary">Sign Up</button>
+  </form>
+</div>

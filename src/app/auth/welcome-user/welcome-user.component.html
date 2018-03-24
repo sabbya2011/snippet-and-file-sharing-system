@@ -1,5 +1,20 @@
-<nav mat-tab-nav-bar>
-  <a routerLinkActive="active" mat-tab-link routerLink="/welcome-user/login" >Login</a>
-  <a routerLinkActive="active" mat-tab-link routerLink="/welcome-user/register">Register</a>
-</nav>
-<router-outlet></router-outlet>
+<div class="background">
+  <div class="background-filter">
+      <div class="foreground">
+        <div class="sub-groups">
+          <div class="foreground-image-container">
+            <div class="foreground-filter">
+                <span class="header-title">Welcome To Snippet and File Sharing System</span>
+            </div>
+          </div>
+        </div>
+        <div class="sub-groups">
+          <nav mat-tab-nav-bar>
+            <a routerLinkActive="active" mat-tab-link routerLink="/welcome-user/login" >Login</a>
+            <a routerLinkActive="active" mat-tab-link routerLink="/welcome-user/register">Register</a>
+          </nav>
+          <router-outlet></router-outlet>
+        </div>
+      </div>
+  </div>
+</div>

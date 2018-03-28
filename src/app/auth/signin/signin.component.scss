@@ -23,6 +23,7 @@
     color:$white;
     opacity:0.5;
     @extend %font;
+    text-align: justify;
 }
 .new-user{
     @extend %font;

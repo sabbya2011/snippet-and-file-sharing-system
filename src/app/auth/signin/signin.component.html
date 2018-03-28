@@ -1,24 +1,38 @@
 <div class="wrapper">
-  <div class="adminActive" *ngIf="flagActive">
+  <!-- <div class="adminActive" *ngIf="flagActive">
     Your registration is under processing.
     <br/>
     Please wait till its complete :)
-  </div>
-  
-  <div class="additional-text">
-    Please register if you dont have an account.
-    It takes hardly any time to have a completely free one :)
+  </div> -->
+  <div class="icon-container">
+    <img  src="/assets/icons/share-snippet.svg" alt="" srcset="">
   </div>
 
-  <form class="example-form" (ngSubmit)="onLogin(f)" #f="ngForm">
-    <mat-form-field class="example-full-width">
-      <input matInput placeholder="E-Mail" type="email" id="email" name="email" ngModel>
-    </mat-form-field>
-    <br/>
-    <mat-form-field class="example-full-width">
-        <input matInput placeholder="Password" type="password" id="password" name="password" ngModel>
-    </mat-form-field>
-    <br/>
-    <button type="submit" mat-raised-button>Sign In Please</button>
-  </form>
+  <div class="welcome-title">
+      Snippet Bucket
+  </div>
+  
+  <section>
+    <div class="additional-text">
+      Please register if you dont have an account.
+      It takes hardly any time to have a completely free one :)
+    </div>
+  
+    <form class="example-form" (ngSubmit)="onLogin(f)" #f="ngForm">
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="E-Mail" type="email" id="email" name="email" ngModel>
+      </mat-form-field>
+      <br/>
+      <mat-form-field class="example-full-width">
+          <input matInput placeholder="Password" type="password" id="password" name="password" ngModel>
+      </mat-form-field>
+      <br/>
+      <button type="submit" mat-raised-button>Sign In Please</button>
+    </form>
+  </section>
+  
+  <div class="new-user">
+    <span>New user ?</span>
+    <a routerLink="/welcome-user/register" >Sign Up</a>
+  </div>
 </div>

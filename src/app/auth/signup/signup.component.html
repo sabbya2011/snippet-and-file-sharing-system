@@ -1,4 +1,13 @@
 <div class="wrapper">
+
+  <div class="icon-container">
+    <img  src="/assets/icons/share-snippet.svg" alt="" srcset="">
+  </div>
+
+  <div class="welcome-title">
+      Snippet Bucket
+  </div>
+
   <form class="example-form" (ngSubmit)="onSignUp(f)" #f="ngForm">
     <mat-form-field class="example-full-width">
       <input matInput placeholder="User Display Name" 
@@ -21,4 +30,10 @@
     <br/>
     <button mat-raised-button type="submit" class="btn btn-primary">Sign Up</button>
   </form>
+
+
+  <div class="existing-user">
+    <span>Already have an account ?</span>
+    <a routerLink="/welcome-user/login" >Please Sign In</a>
+  </div>
 </div>

@@ -1,14 +1,58 @@
+@import '~assets/styles/color-palette.scss';
+@import '~assets/styles/responsive-breaks.scss';
+@import '~assets/styles/helper-css.scss';
+
 .wrapper{
-    height:100%;
-    padding:20px;
+    display:flex;
+    flex-direction:column;
+    padding: 20px;
+    @include container-size(100%,100%);
+    box-sizing: border-box;
+    justify-content: space-around
 }
-.example-container {
-    display: flex;
-    flex-direction: column;
-    > * {
-        width: 100%;
-      }
+.icon-container{
+    display: none;
+}
+.welcome-title{
+    display:none;
+    @extend %font;
+}
+.existing-user{
+    @extend %font;
+    a{
+        color:$white;
+    }
 }
 .mat-form-field{
     width:100%;
+}
+.mat-raised-button{
+    
+    color:$white;
+    border-radius: 25px;
+    width: 100%;
+}
+@media screen and (max-width:$break-sm-width){
+    .icon-container{
+        display: flex;
+        width: 100%;
+        justify-content: center;
+    
+        img{
+            height:45px;
+        }
+    }
+    .welcome-title{
+        display: inline-block;
+        font-size:30px;
+        color:$white;
+    }
+    .mat-raised-button{
+        background-color: $red-background;
+    }
+    .existing-user{
+        a{
+            color:$red-background;
+        }
+    }
 }

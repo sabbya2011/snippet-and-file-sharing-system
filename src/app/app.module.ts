@@ -25,7 +25,7 @@ import { SuggestionBoxComponent } from './app-layout/classroom/suggestion-box/su
 import { UserPersonalDetailsComponent } from './app-layout/user-personal-details/user-personal-details.component';
 
 
-import {MatTabsModule} from '@angular/material/tabs';
+
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 
@@ -54,7 +54,7 @@ import {MatButtonModule} from '@angular/material/button';
     FormsModule,
     ReactiveFormsModule,
 
-    MatTabsModule,
+    
     MatInputModule,
     MatButtonModule
   ],

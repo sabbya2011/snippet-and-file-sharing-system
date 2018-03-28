@@ -1,0 +1,19 @@
+@mixin container-size($width,$height){
+    height:$height;
+    width:$width;
+}
+%font{
+    font-family: Roboto,"Helvetica Neue",sans-serif;
+    font-weight: 500;
+}
+%background-image{
+    background-image: url("/assets/images/login-portal.png");
+    background-repeat: no-repeat;
+    background-size:cover;
+}
+%absolute-filled-content{
+    position:absolute;
+    left:0;
+    top:0;
+    @include container-size(100%,100%);
+}

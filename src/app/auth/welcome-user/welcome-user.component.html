@@ -1,20 +1,36 @@
-<div class="background">
-  <div class="background-filter">
-      <div class="foreground">
-        <div class="sub-groups">
-          <div class="foreground-image-container">
-            <div class="foreground-filter">
-                <span class="header-title">Welcome To Snippet and File Sharing System</span>
-            </div>
-          </div>
-        </div>
-        <div class="sub-groups">
-          <nav mat-tab-nav-bar>
-            <a routerLinkActive="active" mat-tab-link routerLink="/welcome-user/login" >Login</a>
-            <a routerLinkActive="active" mat-tab-link routerLink="/welcome-user/register">Register</a>
-          </nav>
-          <router-outlet></router-outlet>
-        </div>
+<div class="welcome-wrapper">
+  <div class="background">
+    <div class="background-filter">
+    </div>
+  </div>
+  <div class="contents">
+    <div class="content-welcome-info">
+      <div class="icon-container">
+        <img  src="/assets/icons/share-snippet.svg" alt="" srcset="">
       </div>
+      <div class="welcome-info">
+          <div class="welcome-title">
+            Snippet Bucket
+          </div>
+          <div class="sub-welcome-title">
+            A Web Application for Code Sharing
+          </div>
+          <div class="app-details">
+            Use Snippet Bucket to store and share your snippets properly.
+            The application is designed to take care your notes, snippets and source codes.
+            Moreover you can join or create specific classroom to share and manage all your codes and notes in much better way.
+            Snippet bucket provides you your personal wall for all the private codes you want to access in future.
+            Use it once an get the essence of using a web application solely meant for your code management.
+          </div>
+      </div>
+      <ul class="contact-container">
+        <li><span>Git Repository</span></li>
+        <li><span>Connect to my Linkedin Profile</span></li>
+        <li><span>Mail me</span></li>
+      </ul>
+    </div>
+    <div class="routed-content">
+      <router-outlet></router-outlet>      
+    </div>
   </div>
 </div>

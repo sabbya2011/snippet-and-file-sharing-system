@@ -1,83 +1,93 @@
-$activeRouteColor:#3cb3e7;
-$transparent:transparent;
-@mixin container-size($props){
-    height:$props;
-    width:$props;
-}
-%font{
-    font-family: Roboto,"Helvetica Neue",sans-serif;
-    font-weight: 500;
-}
-%background-image{
-    background-image: url("/assets/images/mr-cup-fabien-barral-86068-unsplash.jpg");
-    background-repeat: no-repeat;
-    background-size:cover;
-}
+@import '~assets/styles/color-palette.scss';
+@import '~assets/styles/responsive-breaks.scss';
+@import '~assets/styles/helper-css.scss';
 
+.welcome-wrapper{
+    @extend %absolute-filled-content;
+    background: $dark-black;
+}
 .background{
     @extend %background-image;
-    position: absolute;
-    top: 0;
-    left: 0;
-    @include container-size(100%);
-    .background-filter{
-        background: linear-gradient(45deg, rgba(154,60,173,0.9), rgba(178,90,172,0.9));
-        @include container-size(100%);
-    }
-    .foreground{
-        position: relative;
-        @include container-size(55%);
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%,-50%);
-    }
+    @include container-size(100%,100%);
 }
-
-.sub-groups{
-    width: 50%;
-    height: 100%;
-    float: left;
-    background: white;
-    -webkit-box-shadow: 3px 1px 29px 0px;
-    box-shadow: 3px 1px 29px 0px;
-    display: flex;
+.background-filter{
+    background:$dark-filter;
+    @include container-size(100%,100%);
+}
+.contents{
+    @extend %absolute-filled-content;
+    z-index:1;
+    display:flex;
+}
+.content-welcome-info{
+    display:flex;
     flex-direction: column;
-    .foreground-image-container{
-        @extend %background-image;
-        @include container-size(100%);
-        .foreground-filter{
-            background-color:rgba(54,32,143,0.5);
-            @include container-size(100%);
-            position:relative;
+    flex:.6;
+    padding: 20px 35px 0px 35px;
+    justify-content: space-around;
+
+    .icon-container{
+        display: flex;
+        width: 100%;
+        justify-content: center;
+
+        img{
+            height:75px;
+        }
+        
+    }
+    .welcome-info{
+        display: flex;
+        flex-direction: column;
+        .welcome-title{
+            @extend %font;
+            color:$white;
+            font-size:70px;
+        }
+        .sub-welcome-title{
+            @extend %font;
+            color:$white;
+            opacity:0.8;
+            font-size:25px;
+            margin-bottom:25px;
+        }
+        .app-details{
+            @extend %font;
+            color:$white;
+            opacity:0.5;
+            font-size:16px;
+        }
+    }
+    .contact-container{
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        li{
+            flex:1;
+            text-align: center;
             span{
-                font-size: 45px;
-                color: #ffffff;
-                text-align: left;
-                display: inline-block;
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                width: 90%;
                 @extend %font;
+                color:$white;
+                opacity:0.5;
             }
         }
     }
 }
+.routed-content{
+    flex:.4;
+    background-color: $red-background;
+}
 
-nav{
-    a{
-        border-bottom: 3px solid $transparent;  
-        float:left;
-        width: 50%;
-        font-size:18px;
+@media screen and (max-width:$break-sm-width){
+    .background{
+        @include container-size(100%,50%);
+    }   
+    .content-welcome-info{
+        display:none;
     }
-    .active{
-        border-bottom: 3px solid $activeRouteColor;
-        transition: .5s all;
-        background-color: rgba(0,0,0,0.1);
-        color:#333333 !important;
-        font-size:24px;
-        font-weight:bold;
+    .routed-content{
+        flex:1;
+        background-color: transparent;
     }
 }

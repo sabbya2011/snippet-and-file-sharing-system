@@ -18,6 +18,12 @@
     display:none;
     @extend %font;
 }
+.welcome-sub-title{
+    display: inline-block;
+    font-size:30px;
+    color:$white;
+    @extend %font;
+}
 .additional-text{
     font-size:15px;
     color:$white;
@@ -54,6 +60,9 @@
         display: inline-block;
         font-size:30px;
         color:$white;
+    }
+    .welcome-sub-title{
+        display:none;
     }
     .mat-raised-button{
         background-color: $red-background;

@@ -1,0 +1,21 @@
+@import "~@angular/material/_theming.scss";
+//@import '~assets/styles/color-palette.scss';
+@import '~assets/styles/responsive-breaks.scss';
+
+
+@include mat-core();
+
+$mobile-primary: mat-palette($mat-red,A400);
+$mobile-accent:  mat-palette($mat-pink);
+
+$mobile-theme: mat-dark-theme($mobile-primary, $mobile-accent);
+
+$desktop-primary: mat-palette($mat-grey,300);
+$desktop-accent:  mat-palette($mat-pink);
+
+$desktop-theme: mat-dark-theme($desktop-primary, $desktop-accent);
+
+@include angular-material-theme($desktop-theme);
+@media screen and (max-width:$break-sm-width){
+    @include angular-material-theme($mobile-theme);
+}

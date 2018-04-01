@@ -22,13 +22,16 @@
       It takes hardly any time to have a completely free one :)
     </p>
   
-    <form class="example-form" (ngSubmit)="onLogin(f)" #f="ngForm">
+    <form class="example-form" (ngSubmit)="onLogin()">
       <mat-form-field class="example-full-width">
-        <input matInput placeholder="E-Mail" type="email" id="email" name="email" ngModel>
+        <input matInput placeholder="E-Mail" type="email" id="email" name="email" 
+        ngModel [formControl]="email" required>
+        <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
       </mat-form-field>
       <br/>
-      <mat-form-field class="example-full-width">
-          <input matInput placeholder="Password" type="password" id="password" name="password" ngModel>
+      <mat-form-field class="example-full-width" >
+          <input matInput placeholder="Password" type="password" id="password" name="password" 
+          [formControl]="password" ngModel required>
       </mat-form-field>
       <br/>
       <button type="submit" mat-raised-button>Sign In Please</button>

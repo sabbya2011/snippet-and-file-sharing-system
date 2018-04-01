@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../shared/services/auth.services';
 import { MsgService } from '../../shared/services/message.services';
-import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import {FormControl, Validators} from '@angular/forms';
+
+import {MatSnackBar} from '@angular/material';
+
 
 @Component({
   selector: 'app-signin',
@@ -12,16 +15,31 @@ import { Router } from '@angular/router';
 export class SigninComponent implements OnInit {
 
     flagActive : boolean = false;
+    email = new FormControl('', [Validators.required, Validators.email]);
+    password = new FormControl('', [Validators.required]);
 
     constructor(private authService : AuthService,
       private msgService : MsgService,
-      private router :Router ) { }
+      private router :Router,
+      private snackBar : MatSnackBar ) { }
   
     ngOnInit() {
     }
-    onLogin(formInfo:NgForm){
-      const email = formInfo.value.email;
-      const password = formInfo.value.password;
+
+    getErrorMessage() {
+      return this.email.hasError('required') ? this.msgService.needValue() :
+          this.email.hasError('email') ? this.msgService.validMail() :
+              '';
+    }
+    onLogin(){
+      const email = this.email.value;
+      const password = this.password.value;
+      console.log(this.password);
+      if(!this.email.valid || !this.password.valid){
+        const error = this.msgService.userCredentialIssue();
+        this.showSnackBar(error);
+        return;
+      }
       this.authService.loginUser(email,password)
         .then(
           (res)=>{
@@ -31,7 +49,10 @@ export class SigninComponent implements OnInit {
                 this.checkUserValidity(userData);
             });  
           },
-          (error)=>{console.log(error)}
+          (error)=>{
+            console.log(error);
+            this.showSnackBar(error);
+          }
         );
            
     }
@@ -45,5 +66,10 @@ export class SigninComponent implements OnInit {
           this.flagActive = false;
         },5000);
       }
+    }
+    showSnackBar(msg){
+      this.snackBar.open(msg,"",{
+        duration:2000
+      });
     }    
 }

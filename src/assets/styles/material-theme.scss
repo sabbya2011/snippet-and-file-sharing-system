@@ -7,13 +7,15 @@
 
 $mobile-primary: mat-palette($mat-red,A400);
 $mobile-accent:  mat-palette($mat-pink);
+$mobile-warn : mat-palette($mat-red,A400);
 
-$mobile-theme: mat-dark-theme($mobile-primary, $mobile-accent);
+$mobile-theme: mat-dark-theme($mobile-primary, $mobile-accent,$mobile-warn);
 
 $desktop-primary: mat-palette($mat-grey,300);
 $desktop-accent:  mat-palette($mat-pink);
+$desktop-warn : mat-palette($mat-yellow,500);
 
-$desktop-theme: mat-dark-theme($desktop-primary, $desktop-accent);
+$desktop-theme: mat-dark-theme($desktop-primary, $desktop-accent, $desktop-warn);
 
 @include angular-material-theme($desktop-theme);
 @media screen and (max-width:$break-sm-width){

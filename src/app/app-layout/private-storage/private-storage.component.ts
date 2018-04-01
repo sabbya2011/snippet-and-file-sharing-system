@@ -60,8 +60,9 @@ export class PrivateStorageComponent implements OnInit {
 
 
   populateUpdateSnippetForm(snippet){
-    this.updateSnippetForm.setValue(
-      {snippet_name:snippet.header,
+    this.updateSnippetForm.form.patchValue(
+      {
+        snippet_name:snippet.header,
         snippet_body : snippet.body
       }
     );

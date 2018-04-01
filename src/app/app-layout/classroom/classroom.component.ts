@@ -156,7 +156,7 @@ export class ClassroomComponent implements OnInit {
 
   populateUpdateSnippetForm(snippet){
     this.updateSnippetFlag = true;
-    this.updateSnippetForm.setValue(
+    this.updateSnippetForm.form.patchValue(
       {snippet_name:snippet.header,
         snippet_body : snippet.body
       }

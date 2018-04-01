@@ -11,21 +11,29 @@
   <form class="example-form" (ngSubmit)="onSignUp(f)" #f="ngForm">
     <mat-form-field class="example-full-width">
       <input matInput placeholder="User Display Name" 
-        type="userName" id="userName" name="userName" ngModel>
+        type="userName" id="userName" name="userName" ngModel
+        [formControl]="username" required>
+        <mat-error *ngIf="username.invalid">{{getErrorMessage("username")}}</mat-error>
     </mat-form-field>
     <br/>
     <mat-form-field class="example-full-width">
-      <input matInput placeholder="E-Mail" type="email" id="email" name="email" ngModel>
+      <input matInput placeholder="E-Mail" type="email" id="email" name="email" 
+      ngModel [formControl]="email" required>
+      <mat-error *ngIf="email.invalid">{{getErrorMessage("email")}}</mat-error>
     </mat-form-field>
     <br/>
-    <mat-form-field class="example-full-width">
+    <mat-form-field class="example-full-width" hintLabel="Min 6 characters">
         <input matInput placeholder="Password" 
-          type="password" id="password" name="password" ngModel>
+          type="password" id="password" name="password" ngModel
+          [formControl]="password" required>
+        <mat-error *ngIf="email.invalid">{{getErrorMessage("password")}}</mat-error>
     </mat-form-field>
     <br/>
-    <mat-form-field class="example-full-width">
+    <mat-form-field class="example-full-width" hintLabel="Min 6 characters">
         <input matInput placeholder="Confirm Password" 
-          type="confirm_password" id="confirm_password" name="confirm_password" ngModel>
+          type="password" id="confirm_password" name="confirm_password" ngModel
+          [formControl]="confirm_password" required>
+        <mat-error *ngIf="email.invalid">{{getErrorMessage("confirm_password")}}</mat-error>
     </mat-form-field>
     <br/>
     <button mat-raised-button type="submit" class="btn btn-primary">Sign Up</button>

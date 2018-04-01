@@ -9,10 +9,25 @@ export class MsgService {
     registrationSuccess(){
         return "Registration process has been initiated. Please wait for Administrator approval";
     }
-    registrationPasswordMismatch(){
-        return "Please enter Confirm Password properly";
+    formInvalid(){
+        return "Please provide all inputs correctly";
     }
     userCredentialIssue(){
-        return "please provide Valid Credential to login";
+        return "Please Provide Valid Credentials to Login";
+    }
+    validMail(){
+        return "Not a valid email";
+    }
+    validUserName(){
+        return "Username length in between 6 to 10";
+    }
+    validPassword(){
+        return "Password length in between 6 to 10";
+    }
+    validConfirmPassword(){
+        return "Password is different from Confirm password";
+    }
+    needValue(){
+        return "You must enter a value";
     }
 }

@@ -14,7 +14,7 @@ import {MatSnackBar} from '@angular/material';
 })
 export class SigninComponent implements OnInit {
 
-    flagActive : boolean = false;
+    
     email = new FormControl('', [Validators.required, Validators.email]);
     password = new FormControl('', [Validators.required]);
 
@@ -61,10 +61,7 @@ export class SigninComponent implements OnInit {
         this.authService.setUserAdminPriviledge(userData.role);
         this.router.navigate(["processed-login"]);
       }else{
-        this.flagActive = true;
-        setTimeout(()=>{
-          this.flagActive = false;
-        },5000);
+       this.showSnackBar(this.msgService.loginBeingProcessed()); 
       }
     }
     showSnackBar(msg){

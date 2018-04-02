@@ -6,6 +6,9 @@ export class MsgService {
             return "Server issue! Sorry for the disturbance";
         }
     }
+    loginBeingProcessed(){
+        return "Your registration is under processing. Please wait till its complete :)"
+    }
     registrationSuccess(){
         return "Registration process has been initiated. Please wait for Administrator approval";
     }

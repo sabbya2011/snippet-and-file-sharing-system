@@ -81,11 +81,21 @@ export class AuthService{
     activateUserStatus(uid){
         const updateData = {activated:true};
         const fb = this.database.ref();
-
         return fb.child('users/'+uid).update(updateData);
-        //return firebase.database().ref('/users/'+uid).set({activated:true});
+        
     }
-    
+    deactivateUserStatus(uid){
+        const updateData = {activated:false};
+        const fb = this.database.ref();
+        return fb.child('users/'+uid).update(updateData);
+    }
+    deleteUserInfo(uid){
+        const fb = this.database.ref();
+        const promise = fb.child('privateKeep/'+uid).remove();
+        return promise.then((res)=>{
+            return fb.child('users/'+uid).remove();
+        });
+    }
     
     
     

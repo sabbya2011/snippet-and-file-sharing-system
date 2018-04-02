@@ -11,5 +11,11 @@
 <ul>
   <li *ngFor="let activeUser of activeUsersData">
     {{activeUser.displayName}}
+    {{activeUser.classroom}}
+    {{activeUser.email}}
+    {{activeUser.contact}}
+    {{activeUser.gender}}
+    <button (click)="deactivateUser(activeUser.userId)">Deactivate User</button>
+    <button (click)="deleteUser(activeUser.userId)">Delete User</button>
   </li>
 </ul>

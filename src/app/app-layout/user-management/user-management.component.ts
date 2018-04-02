@@ -54,4 +54,16 @@ export class UserManagementComponent implements OnInit {
       this.updateAllUserData();
     });
   }
+  deactivateUser(uid:string){
+    this.authService.deactivateUserStatus(uid)
+    .then((res)=>{
+      this.updateAllUserData();
+    });
+  }
+  deleteUser(uid:string){
+    this.authService.deleteUserInfo(uid)
+    .then((res)=>{
+      this.updateAllUserData();
+    });
+  }
 }

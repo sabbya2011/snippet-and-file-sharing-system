@@ -9,6 +9,9 @@ export class MsgService {
     loginBeingProcessed(){
         return "Your registration is under processing. Please wait till its complete :)"
     }
+    logoutError(){
+        return "Some issue occured. Cannot Logout right now :(";
+    }
     registrationSuccess(){
         return "Registration process has been initiated. Please wait for Administrator approval";
     }

@@ -1,9 +1,22 @@
-div{
+.header-container{
     background-color:#3cb3e7;
 }
-img{
-    height:50px;
-    border-radius: 50%;
-    border:2px solid #020d11;
-    float: right;
+.header-container{  
+    display: inline-block;
+    width:100%;
+    section{
+        float:right;
+        height:50px;
+        button{
+            line-height: 50px;
+            padding: 0;
+            min-width: 10px;
+        }
+    }
+    img{
+        width:50px;
+        border-radius: 50%;
+        border:2px solid #020d11;
+        float:right;
+    }
 }

@@ -1,6 +1,10 @@
 import { AuthService } from './../../services/auth.services';
+import { MsgService } from '../../services/message.services';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+
+import {MatSnackBar} from '@angular/material';
+
 
 @Component({
   selector: 'app-header',
@@ -13,7 +17,9 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private router:Router,
-    private authService:AuthService
+    private authService:AuthService,
+    private msgService:MsgService,
+    private snackBar : MatSnackBar
   ) { }
 
   ngOnInit() {
@@ -22,4 +28,21 @@ export class HeaderComponent implements OnInit {
   goToManageUser(){
     this.router.navigate(["processed-login","user"]);
   }
+  logoutUser(){
+    this.authService.logoutUser()
+      .then(
+        (res)=>{
+          if(res==true){
+            this.router.navigate(["welcome-user","login"]);
+          }else{
+            this.showSnackBar(this.msgService.logoutError())
+          }
+        }
+      )
+  }
+  showSnackBar(msg){
+    this.snackBar.open(msg,"",{
+      duration:2000
+    });
+  }  
 }

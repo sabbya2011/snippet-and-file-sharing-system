@@ -1,13 +1,13 @@
 <nav class="sidebar-container">
   <ul class="navigator-container">
     <li *ngIf="userAccessibility">
-      <a  routerLink="/processed-login/user-management">User Management</a>
+      <a routerLinkActive="activatedSidebarButton" routerLink="/processed-login/user-management">User Management</a>
     </li>
     <li>
-      <a routerLink="/processed-login/classroom">Classroom</a>
+      <a routerLinkActive="activatedSidebarButton" routerLink="/processed-login/classroom">Classroom</a>
     </li>
     <li>
-      <a routerLink="/processed-login/storage">Private Keep</a>
+      <a routerLinkActive="activatedSidebarButton" routerLink="/processed-login/storage">Private Keep</a>
     </li>
   </ul>
 </nav>

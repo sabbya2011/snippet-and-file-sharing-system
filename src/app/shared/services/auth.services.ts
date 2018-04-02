@@ -50,6 +50,26 @@ export class AuthService{
                 throw this.msgService.userCredentialIssue();
             });
     }
+
+    clearAuth(){
+        this.userActivationStatus = false;
+        this.userDetails = "";
+        this.userAdminPriviledge = false;
+    }
+
+    logoutUser(){
+        return firebase.auth().signOut()
+            .then(
+                (res)=>{
+                    this.clearAuth();
+                    return true;
+                },
+                (error)=>{
+                    return false;
+                }
+
+            );
+    }
     
     getUserInfo(){
         const userId = firebase.auth().currentUser.uid;

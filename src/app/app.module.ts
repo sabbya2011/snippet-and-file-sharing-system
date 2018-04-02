@@ -28,6 +28,7 @@ import { UserPersonalDetailsComponent } from './app-layout/user-personal-details
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
+import {MatMenuModule} from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import {MatButtonModule} from '@angular/material/button';
 
     MatSnackBarModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatMenuModule
   ],
   providers: [
     AuthService,

@@ -1,8 +1,45 @@
+@import '~assets/styles/color-palette.scss';
+@import '~assets/styles/responsive-breaks.scss';
+@import '~assets/styles/helper-css.scss';
+
 .sidebar-container{
-    width: 250px;
-    height: 100vh;
+    height: 100%;
     z-index: 1;
-    background: #a8a8a8;
-    color: #fff;
+    background: $red-background;
     transition: all 0.3s;
+}
+.navigator-container{
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    a{
+        color: $white;
+        text-decoration: none;
+        @extend %font;
+        display: inline-block;
+        width: 100%;
+        padding: 15px;
+        transition: all.3s linear;
+        :focus{
+            color: $white;
+            text-decoration: none;
+        }
+    }
+    .activatedSidebarButton{
+        background-color: $dark-filter;
+        background: $sidebar-active;
+        font-size: 18px;
+    }
+}
+@media screen and (max-width:$break-sm-width){
+    .navigator-container{
+        display: flex;
+        flex-direction: row;
+
+        li{
+            flex:1;
+            text-align: center;
+            
+        }
+    }
 }

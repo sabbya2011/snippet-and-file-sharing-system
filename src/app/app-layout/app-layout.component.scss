@@ -1,5 +1,14 @@
+@import '~assets/styles/color-palette.scss';
+@import '~assets/styles/responsive-breaks.scss';
+@import '~assets/styles/helper-css.scss';
+
+
 .wrapper{
     display:flex;
+}
+app-sidebar{
+    flex-basis: 250px;
+    height:100vh;
 }
 .dashboard-container{
     height: 100vh;
@@ -14,4 +23,13 @@
     -ms-flex-direction: column;
     flex-direction: column;
     overflow-y: auto;
+}
+@media screen and (max-width:$break-sm-width){
+    .wrapper{
+        flex-direction: column;
+    }
+    app-sidebar{
+        flex-basis: auto;
+        height:fit-content;
+    }
 }

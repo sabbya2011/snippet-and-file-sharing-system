@@ -1,4 +1,16 @@
-<div>
-  <button (click)="goToManageUser()">Go to User</button>
+<div class="header-container">
+  <section>
+    <button mat-button [matMenuTriggerFor]="menu">
+      <i class="material-icons">arrow_drop_down</i>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="goToManageUser()">
+        Edit User
+      </button>
+      <button mat-menu-item (click)="logoutUser()">
+        Logout
+      </button>
+    </mat-menu>
+  </section>
   <img [src]="profilePicture.url" alt="" srcset="">
 </div>

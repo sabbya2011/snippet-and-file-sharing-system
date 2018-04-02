@@ -1,13 +1,48 @@
 <nav class="sidebar-container">
+  <div class="snippetbucket-header">
+    <img src="" alt="" srcset="">
+    <span>Snippet Bucket</span>
+  </div>
   <ul class="navigator-container">
-    <li *ngIf="userAccessibility">
-      <a routerLinkActive="activatedSidebarButton" routerLink="/processed-login/user-management">User Management</a>
+    <li class="navigate-header">
+      <span>APPLICATION STUFF</span>
     </li>
-    <li>
-      <a routerLinkActive="activatedSidebarButton" routerLink="/processed-login/classroom">Classroom</a>
+    <li *ngIf="userAccessibility" class="navigate-stuff">
+      <a class="navigate-anchor" routerLinkActive="activatedSidebarButton" 
+        routerLink="/processed-login/user-management">
+        <i class="material-icons">contacts</i>
+        User Management</a>
     </li>
-    <li>
-      <a routerLinkActive="activatedSidebarButton" routerLink="/processed-login/storage">Private Keep</a>
+    <li class="navigate-stuff">
+      <a routerLinkActive="activatedSidebarButton" routerLinkActive="activatedSidebarButton"
+        routerLink="/processed-login/classroom">
+        <i class="material-icons">event_seat</i>
+        Classroom</a>
+    </li>
+    <li class="navigate-stuff">
+      <a routerLinkActive="activatedSidebarButton" routerLinkActive="activatedSidebarButton"
+        routerLink="/processed-login/storage">
+        <i class="material-icons">store</i>
+        Private Keep</a>
     </li>
   </ul>
+
+  <ul class="navigator-container">
+    <li class="navigate-header">
+      <span>YOUR STUFF</span>
+    </li>
+    <li class="navigate-stuff">
+      <a routerLinkActive="activatedSidebarButton" routerLinkActive="activatedSidebarButton"
+        routerLink="/processed-login/user">
+        <i class="material-icons">account_box</i> 
+        Edit User</a>
+    </li>
+    <li class="navigate-stuff">
+      <a (click)="logoutUser()">
+          <i class="material-icons">assignment_return</i>
+          Logout</a>
+    </li>
+    
+  </ul>
+
 </nav>

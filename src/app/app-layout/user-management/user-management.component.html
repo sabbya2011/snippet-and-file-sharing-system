@@ -6,39 +6,65 @@
     </header>
     <section>
       <ul class="primary-options">
-        <li>All Users</li>
-        <li>Pending Users</li>
-        <li>Activated Users</li>
+        <li class="primary-selectable" 
+          [ngClass]="activeActionClass('pending')" 
+          (click)="showUsers('pending')">Pending Users</li>
+        <li class="primary-selectable" 
+          [ngClass]="activeActionClass('activated')" 
+          (click)="showUsers('activated')">Activated Users</li>
       </ul>
+      <!-- <ul class="primary-options">
+        <li class="primary-headers">Find User By Mail Id</li>
+      </ul> -->
     </section>
   </div>
   <div class="contents">
     <header>
-
+      <span>{{contentHeader}}</span>
     </header>
+    <section>
+
+      <ul *ngIf="showItemsBySelectedActionList('pending')" class="user-list-container">
+        <li *ngFor="let pendingUser of pendingUsersData" class="pending-user-card">
+          <div class="user-info">
+            <span class="pending-user-name">{{pendingUser.displayName}}</span>
+            <span class="pending-user-mail">{{pendingUser.email}}</span>
+          </div>
+          <div class="action-buttons">
+            <span (click)="activateUser(pendingUser.userId)" class="active-pending-user">
+                <i class="material-icons">check_circle</i>
+            </span>
+            <span (click)="deleteUser(pendingUser.userId)" class="remove-pending-user">
+                <i class="material-icons">delete</i>
+            </span>
+          </div>
+        </li>
+      </ul>
+
+      <ul *ngIf="showItemsBySelectedActionList('activated')" class="user-list-container">
+        <li *ngFor="let activeUser of activeUsersData" class="pending-user-card">
+
+          <!-- <div class="user-image">
+
+          </div> -->
+          <div class="user-info">
+            <span class="active-user-name active-common-txt-decoration">{{activeUser.displayName}}</span>
+            <span class="active-user-mail active-common-txt-decoration">{{activeUser.email}}</span>
+            <span class="active-user-classroom active-common-txt-decoration">{{activeUser.classroom}}</span>
+            <span class="active-user-contact active-common-txt-decoration">{{activeUser.contact}}</span>
+            <!-- <span class="active-user-gender">{{activeUser.gender}}</span> -->
+          </div>
+          <div class="action-buttons">
+            <span (click)="deactivateUser(activeUser.userId)" class="active-pending-user">
+                <i class="material-icons">lock</i>
+            </span>
+            <span (click)="deleteUser(activeUser.userId)" class="remove-pending-user">
+                <i class="material-icons">delete</i>
+            </span>
+          </div>
+        </li>
+      </ul>
+    </section>
   </div>
 </div>
 
-
-
-<!-- <h4>Pending Users</h4>
-<ul>
-  <li *ngFor="let pendingUser of pendingUsersData">
-    {{pendingUser.displayName}}
-    <br/>
-    <button (click)="activateUser(pendingUser.userId)">Activate User</button>
-  </li>
-</ul>
-
-<h4>Activated Users</h4>
-<ul>
-  <li *ngFor="let activeUser of activeUsersData">
-    {{activeUser.displayName}}
-    {{activeUser.classroom}}
-    {{activeUser.email}}
-    {{activeUser.contact}}
-    {{activeUser.gender}}
-    <button (click)="deactivateUser(activeUser.userId)">Deactivate User</button>
-    <button (click)="deleteUser(activeUser.userId)">Delete User</button>
-  </li>
-</ul> -->

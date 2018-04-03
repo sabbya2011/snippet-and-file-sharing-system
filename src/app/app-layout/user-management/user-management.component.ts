@@ -10,6 +10,8 @@ export class UserManagementComponent implements OnInit {
   userData;
   activeUsersData:any[]=[];
   pendingUsersData:any[]=[];
+  activeOption = "";
+  contentHeader = "Select From Action List";
   constructor(
      
     private authService : AuthService) { }
@@ -17,6 +19,28 @@ export class UserManagementComponent implements OnInit {
   ngOnInit() {
     this.updateAllUserData();
   }
+
+  getCurrentDateTime(){
+    let dateTime = Date.now();
+    return dateTime;
+  }
+
+  activeActionClass(status:string){
+    return this.activeOption == status?"active-action-list":"";
+  }
+  showItemsBySelectedActionList(status:string){
+    return this.activeOption == status?true:false;
+  }
+
+  showUsers(status:string){
+    this.activeOption = status;
+    if(status=="pending"){
+      this.contentHeader = "Pending Users";
+    }else if(status="activated"){
+      this.contentHeader = "Active Users";
+    }
+  }
+
   updateAllUserData(){
     this.authService.getAllUsers()
       .then(
@@ -26,6 +50,34 @@ export class UserManagementComponent implements OnInit {
         }
       )
   }
+
+  // filterUserTimeline(userData,dateTime){
+  //   let userDataDateTime = new Date(userData.requestTime);
+    
+  //   let userDate = userDataDateTime.getDate();
+  //   let userMonth = userDataDateTime.getMonth();
+  //   let userYear = userDataDateTime.getFullYear();
+    
+  //   let currentDate = dateTime.getDate();
+  //   let currentMonth = dateTime.getMonth();
+  //   let currentYear = dateTime.getFullYear();
+
+  //   if(currentYear==userYear){
+  //     if(currentMonth==userMonth){
+  //       if(currentDate==userDate){
+  //         return "Today";
+  //       }else{
+  //         return "This Month";
+  //       }
+  //     }else{
+  //       return "This Year";
+  //     }
+  //   }else{
+  //     return "Old Records";
+  //   }
+     
+  // }
+
   filterUsersList(){
     this.activeUsersData = [];
     this.pendingUsersData = [];
@@ -33,6 +85,7 @@ export class UserManagementComponent implements OnInit {
       Object.keys(this.userData).forEach(
         (key)=>{
           const user = Object.assign({userId:key},this.userData[key]);
+          const dateTime = this.getCurrentDateTime();
           if(this.userData[key].activated){
             this.activeUsersData.push(user);
           }else{

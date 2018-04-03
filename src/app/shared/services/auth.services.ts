@@ -14,6 +14,11 @@ export class AuthService{
 
     constructor(private msgService:MsgService,private http: Http){}
     
+
+    getFirebaseDate(){
+        return firebase.database.ServerValue.TIMESTAMP;
+    }
+
     registerUser(email:string,password:string){
         return firebase.auth().createUserWithEmailAndPassword(email,password)
             .catch((error)=>{
@@ -22,9 +27,9 @@ export class AuthService{
     }
     
     processRegistration(email:string,password:string,displayname:string){
-        this.signinInitializer(email,password).then(
+        return this.signinInitializer(email,password).then(
             (response)=>{
-                this.createUserAsViewer(email,displayname);            }
+                return this.createUserAsViewer(email,displayname);            }
         )
     }
     signinInitializer(email:string,password:string){
@@ -36,11 +41,12 @@ export class AuthService{
             email : email,
             displayName : displayName,
             activated : false,
-            role:"Editor"
+            role:"Editor",
+            requestTime:this.getFirebaseDate()
         };
         const uid = firebase.auth().currentUser.uid;
         this.database.ref('users/' + uid).set(user);
-        
+        return true;
     }
     
     
@@ -99,7 +105,10 @@ export class AuthService{
         return firebase.database().ref('/users').once('value');
     }
     activateUserStatus(uid){
-        const updateData = {activated:true};
+        const updateData = {
+            activated:true,
+            approvedTime:this.getFirebaseDate()
+        };
         const fb = this.database.ref();
         return fb.child('users/'+uid).update(updateData);
         
@@ -177,7 +186,7 @@ export class AuthService{
         const publisher =this.getUserDisplayName();
         const importantSnippetInfo = {
             publisher:publisher,
-            time:firebase.database.ServerValue.TIMESTAMP
+            time:this.getFirebaseDate()
         }
         snippet = Object.assign(snippet,importantSnippetInfo);
         return this.database.ref('classroomSuggestions/'+classroomName).push().set(snippet);

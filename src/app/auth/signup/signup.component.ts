@@ -1,9 +1,11 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../shared/services/auth.services';
 import { MsgService } from '../../shared/services/message.services';
 import {FormControl, Validators, NgForm} from '@angular/forms';
 
 import { MatSnackBar } from '@angular/material';
+import { setTimeout } from 'timers';
 
 
 @Component({
@@ -24,7 +26,8 @@ export class SignupComponent implements OnInit {
 
   constructor(private authService : AuthService,
   private msgService : MsgService,
-  private snackBar:MatSnackBar) { }
+  private snackBar:MatSnackBar,
+  private router:Router) { }
 
   ngOnInit() {
   }
@@ -86,8 +89,16 @@ export class SignupComponent implements OnInit {
         (response)=>{
           const res = this.msgService.registrationSuccess();
           console.log(res);
-          this.authService.processRegistration(email,password,userName);
-          this.createSnackBarAlert(res);
+          this.authService.processRegistration(email,password,userName)
+          .then(
+            ()=>{
+              this.createSnackBarAlert(res);
+              setTimeout(()=>{
+                this.router.navigate(["welcome-user","login"]);
+              },2000);
+            }
+          );
+          
         },
         (error)=>{
           console.log(error);

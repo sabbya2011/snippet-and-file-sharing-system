@@ -1,7 +1,9 @@
 <div class="wrapper">
-  <div class="action-list">
+  <div class="action-list" #actionList>
     <header>
-        <i class="material-icons">subject</i>
+        <i class="material-icons subject">subject</i>
+        <i class="material-icons key-left" 
+          (click)="hideNavigation(actionList,showActionList)">keyboard_arrow_left</i>
         <span>Action List</span>
     </header>
     <section>
@@ -20,6 +22,8 @@
   </div>
   <div class="contents">
     <header>
+      <i #showActionList class="material-icons key-right" 
+        (click)="showNavigation(actionList,showActionList)">keyboard_arrow_right</i>
       <span>{{contentHeader}}</span>
     </header>
     <section>

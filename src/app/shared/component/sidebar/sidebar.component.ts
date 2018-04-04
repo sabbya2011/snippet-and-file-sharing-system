@@ -13,7 +13,7 @@ import {MatSnackBar} from '@angular/material';
 export class SidebarComponent implements OnInit {
   userAccessibility : boolean = false;
   profilePicture;
-
+  //@ViewChild("navigation") navigation : ElementRef;  
   constructor(
     private router:Router,
     private authService:AuthService,
@@ -26,6 +26,11 @@ export class SidebarComponent implements OnInit {
     this.profilePicture = this.authService.profilePicture;
   }
   
+  toggleNavigation(el:HTMLElement){
+    //el.style.display = "none";
+    el.classList.toggle("hide-sidebar");
+  }
+
   logoutUser(){
     this.authService.logoutUser()
       .then(

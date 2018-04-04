@@ -18,6 +18,16 @@ export class UserManagementComponent implements OnInit {
 
   ngOnInit() {
     this.updateAllUserData();
+    this.showUsers("pending");
+  }
+
+  showNavigation(actionList:HTMLElement,keyRight:HTMLElement){
+    actionList.style.display = 'flex';
+    keyRight.style.display = 'none';
+  }
+  hideNavigation(actionList:HTMLElement,keyRight:HTMLElement){
+    actionList.style.display = 'none';
+    keyRight.style.display = 'block';
   }
 
   getCurrentDateTime(){

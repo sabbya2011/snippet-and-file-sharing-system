@@ -2,47 +2,49 @@
   <div class="snippetbucket-header">
     <img src="" alt="" srcset="">
     <span>Snippet Bucket</span>
+    <i class="material-icons hamburger" (click)="toggleNavigation(navigation)">reorder</i>
   </div>
-  <ul class="navigator-container">
-    <li class="navigate-header">
-      <span>APPLICATION STUFF</span>
-    </li>
-    <li *ngIf="userAccessibility" class="navigate-stuff">
-      <a class="navigate-anchor" routerLinkActive="activatedSidebarButton" 
-        routerLink="/processed-login/user-management">
-        <i class="material-icons">contacts</i>
-        User Management</a>
-    </li>
-    <li class="navigate-stuff">
-      <a routerLinkActive="activatedSidebarButton" routerLinkActive="activatedSidebarButton"
-        routerLink="/processed-login/classroom">
-        <i class="material-icons">event_seat</i>
-        Classroom</a>
-    </li>
-    <li class="navigate-stuff">
-      <a routerLinkActive="activatedSidebarButton" routerLinkActive="activatedSidebarButton"
-        routerLink="/processed-login/storage">
-        <i class="material-icons">store</i>
-        Private Keep</a>
-    </li>
-  </ul>
-
-  <ul class="navigator-container">
-    <li class="navigate-header">
-      <span>YOUR STUFF</span>
-    </li>
-    <li class="navigate-stuff">
-      <a routerLinkActive="activatedSidebarButton" routerLinkActive="activatedSidebarButton"
-        routerLink="/processed-login/user">
-        <i class="material-icons">account_box</i> 
-        Edit User</a>
-    </li>
-    <li class="navigate-stuff">
-      <a (click)="logoutUser()">
-          <i class="material-icons">assignment_return</i>
-          Logout</a>
-    </li>
-    
-  </ul>
-
+  <section #navigation>
+    <ul class="navigator-container">
+      <li class="navigate-header">
+        <span>APPLICATION STUFF</span>
+      </li>
+      <li *ngIf="userAccessibility" class="navigate-stuff">
+        <a class="navigate-anchor" routerLinkActive="activatedSidebarButton" 
+          routerLink="/processed-login/user-management">
+          <i class="material-icons">contacts</i>
+          User Management</a>
+      </li>
+      <li class="navigate-stuff">
+        <a routerLinkActive="activatedSidebarButton" routerLinkActive="activatedSidebarButton"
+          routerLink="/processed-login/classroom">
+          <i class="material-icons">event_seat</i>
+          Classroom</a>
+      </li>
+      <li class="navigate-stuff">
+        <a routerLinkActive="activatedSidebarButton" routerLinkActive="activatedSidebarButton"
+          routerLink="/processed-login/storage">
+          <i class="material-icons">store</i>
+          Private Keep</a>
+      </li>
+    </ul>
+  
+    <ul class="navigator-container">
+      <li class="navigate-header">
+        <span>YOUR STUFF</span>
+      </li>
+      <li class="navigate-stuff">
+        <a routerLinkActive="activatedSidebarButton" routerLinkActive="activatedSidebarButton"
+          routerLink="/processed-login/user">
+          <i class="material-icons">account_box</i> 
+          Edit User</a>
+      </li>
+      <li class="navigate-stuff">
+        <a (click)="logoutUser()">
+            <i class="material-icons">assignment_return</i>
+            Logout</a>
+      </li>
+      
+    </ul>
+  </section>
 </nav>

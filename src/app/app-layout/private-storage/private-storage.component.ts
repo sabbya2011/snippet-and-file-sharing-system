@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../shared/services/auth.services';
 import { NgForm } from '@angular/forms';
 import { ViewChild } from '@angular/core';
+import 'rxjs/Rx';
 
 @Component({
   selector: 'app-private-storage',
@@ -184,15 +185,14 @@ export class PrivateStorageComponent implements OnInit {
     const snippet_attach_file = snippet.attachFileName;
     this.authService.downloadAttachedFile("privateKeep",snippet_key,snippet_attach_file)
     .then(
-      (url)=>{
-        console.log(url);
-        var xhr = new XMLHttpRequest();
-        xhr.responseType = 'blob';
-        xhr.onload = function(event) {
-          var blob = xhr.response;
-        };
-        xhr.open('GET', url);
-        xhr.send();
+      (dataurl)=>{
+        var a = document.createElement("a");
+        a.href = dataurl;
+        a.setAttribute("download", snippet_attach_file);
+        var b = document.createEvent("MouseEvents");
+        b.initEvent("click", false, true);
+        a.dispatchEvent(b);
+        return false;
       }
     )
   }

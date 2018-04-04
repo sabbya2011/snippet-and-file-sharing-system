@@ -11,6 +11,9 @@ import { ViewChild } from '@angular/core';
 export class PrivateStorageComponent implements OnInit {
   snippetList : any[] = [];
   activeSnippetId : string;
+  activeOption = "";
+  contentHeader = "Select From Action List";
+  attach_file_details : File;
   @ViewChild('f_update_snippet') updateSnippetForm : NgForm;
   constructor(
     private authService : AuthService
@@ -18,18 +21,101 @@ export class PrivateStorageComponent implements OnInit {
 
   ngOnInit() {
     this.getUserPrivateSnippets();
+    this.showAction("viewnotes");
+  }
+
+  checkSnippetFileAttached(flag){
+    return (flag)?true:false;
+  }
+
+  getAttachFileName(){
+    return (this.attach_file_details)?this.attach_file_details.name:"No Files Attached"; 
+  }
+
+  attachAttachment(file:FileList,inputTag:HTMLInputElement){
+    const fileItem = file.item(0);
+    if(fileItem.type!="application/x-zip-compressed" || fileItem.size>15000000){
+      this.attach_file_details = null;
+      inputTag.value = "";
+    }else{
+      this.attach_file_details = file.item(0);
+    }
+  }
+
+  showNavigation(actionList:HTMLElement,keyRight:HTMLElement){
+    actionList.style.display = 'flex';
+    keyRight.style.display = 'none';
+  }
+  hideNavigation(actionList:HTMLElement,keyRight:HTMLElement){
+    actionList.style.display = 'none';
+    keyRight.style.display = 'block';
+  }
+  activeActionClass(status:string){
+    return this.activeOption == status?"active-action-list":"";
+  }
+  showItemsBySelectedActionList(status:string){
+    return this.activeOption == status?true:false;
+  }
+
+  showAction(status:string){
+    this.activeOption = status;
+    if(status=="viewnotes"){
+      this.contentHeader = "All Private Keeps";
+    }else if(status="createnotes"){
+      this.contentHeader = "Create Keep";
+    }
+  }
+
+  resetSnippetAttachFile(snippet){
+    snippet.attachFileName = "";
+    const pushKey = this.authService.findPushKey("privateKeep");
+    this.authService.createPrivateSnippet(snippet,pushKey)
+      .then(
+        (res)=>{
+          console.log("reverted");
+          this.getUserPrivateSnippets();
+        },
+        ()=>{
+          console.log("error");
+        }
+      )
+  }
+
+  publishSnippet(snippet,pushKey){
+    this.authService.attachFile(this.attach_file_details,"privateKeep",pushKey)
+    .then(
+      ()=>{
+        console.log("success");
+        this.getUserPrivateSnippets();
+      },
+      ()=>{
+        console.log("error");
+        this.resetSnippetAttachFile(snippet);
+      }
+    )
   }
 
   createPrivateSnippet(form:NgForm){
+    let attachFileName = "";
+    if(this.attach_file_details){
+      attachFileName = this.attach_file_details.name;
+    }
+
     const snippet = {
       header:form.value.snippet_name,
-      body:form.value.snippet_body
+      body:form.value.snippet_body,
+      attachFileName:attachFileName
     };
-    this.authService.createPrivateSnippet(snippet)
+    const pushKey = this.authService.findPushKey("privateKeep");
+    this.authService.createPrivateSnippet(snippet,pushKey)
       .then(
         (res)=>{
-          console.log("success");
-          this.getUserPrivateSnippets();
+          if(attachFileName){
+            this.publishSnippet(snippet,pushKey);
+          }else{
+            console.log("success");
+            this.getUserPrivateSnippets();
+          }
         },
         (error)=>{
           console.log("Private Keep "+error);
@@ -92,4 +178,23 @@ export class PrivateStorageComponent implements OnInit {
         }
       )
   }
+
+  downloadAttachedFile(snippet){
+    const snippet_key = snippet.snippetId;
+    const snippet_attach_file = snippet.attachFileName;
+    this.authService.downloadAttachedFile("privateKeep",snippet_key,snippet_attach_file)
+    .then(
+      (url)=>{
+        console.log(url);
+        var xhr = new XMLHttpRequest();
+        xhr.responseType = 'blob';
+        xhr.onload = function(event) {
+          var blob = xhr.response;
+        };
+        xhr.open('GET', url);
+        xhr.send();
+      }
+    )
+  }
+
 }

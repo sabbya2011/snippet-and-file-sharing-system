@@ -192,4 +192,7 @@ app-user-management{
         float:left;
         color:$sidebar-text;
     }
+    .pending-user-card{
+        flex: 1 1 100%;
+    }
 }

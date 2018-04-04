@@ -11,6 +11,7 @@ export class AuthService{
     database = firebase.database();
     userAdminPriviledge : boolean = false;
     private userDisplayName : string = '';
+    pushKey:string;
 
     constructor(private msgService:MsgService,private http: Http){}
     
@@ -158,15 +159,23 @@ export class AuthService{
         return this.database.ref('classroomSnippets/'+classroomName+'/'+snippetId).remove();
     }
 
+    findPushKey(type){
+        const uid = firebase.auth().currentUser.uid;
+        if(type=="privateKeep"){
+            this.pushKey = this.database.ref('privateKeep/'+uid).push().key;
+            return this.pushKey;
+        }
+    }
 
 
     getUserspecificSnippets(){
         const uid = firebase.auth().currentUser.uid;
         return this.database.ref('privateKeep/'+uid).once('value');
     }
-    createPrivateSnippet(snippet){
+    createPrivateSnippet(snippet,pushKey){
         const uid = firebase.auth().currentUser.uid;
-        return this.database.ref('privateKeep/'+uid).push().set(snippet);
+        return this.database.ref('privateKeep/'+uid).child(pushKey).set(snippet);
+         
     }
     updatePrivateSnippet(snippetId,snippet){
         const uid = firebase.auth().currentUser.uid;
@@ -235,5 +244,29 @@ export class AuthService{
           }).catch((error)=>{
             this.profilePicture.url = '';
           });
+    }
+
+
+    attachFile(file:File,fileAddress,pushKey){
+        const uid = firebase.auth().currentUser.uid;
+        const metadata = {
+            contentType: file.type
+        };
+        let address = "";
+        if(fileAddress=="privateKeep"){
+            address = `PrivateKeep/${uid}/${pushKey}/${file.name}`;
+        }
+        const storageref = firebase.storage().ref().child(address);
+        return storageref.put(file,metadata);
+    }
+
+    downloadAttachedFile(fileAddress,fileKey,fileName){
+        const uid = firebase.auth().currentUser.uid;
+        let address = "";
+        if(fileAddress=="privateKeep"){
+            address = `PrivateKeep/${uid}/${fileKey}/${fileName}`;
+        }
+        const storageref = firebase.storage().ref().child(address);
+        return storageref.getDownloadURL();
     }
 }

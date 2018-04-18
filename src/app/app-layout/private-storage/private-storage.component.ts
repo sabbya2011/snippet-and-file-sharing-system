@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../shared/services/auth.services';
-import { NgForm } from '@angular/forms';
-import { ViewChild } from '@angular/core';
+import { NgForm, FormGroup, FormControl } from '@angular/forms';
 import 'rxjs/Rx';
 
 @Component({
@@ -12,10 +11,14 @@ import 'rxjs/Rx';
 export class PrivateStorageComponent implements OnInit {
   snippetList : any[] = [];
   activeSnippetId : string;
+  activeFileName :string = '';
   activeOption = "";
   contentHeader = "Select From Action List";
-  attach_file_details : File;
-  @ViewChild('f_update_snippet') updateSnippetForm : NgForm;
+  attach_file_details : File = null;
+  onloadFileName : string = '';
+  editForm : FormGroup;
+
+
   constructor(
     private authService : AuthService
   ) { }
@@ -23,6 +26,32 @@ export class PrivateStorageComponent implements OnInit {
   ngOnInit() {
     this.getUserPrivateSnippets();
     this.showAction("viewnotes");
+    this.initializeEditForm();
+  }
+
+  existanceofAttachFile() : boolean{
+    if(this.activeOption=="createnotes"){
+      return (this.attach_file_details)?true:false;
+    }
+    else if(this.activeOption=="editnotes"){
+      return this.activeFileName?true:(this.attach_file_details)?true:false;
+    }
+  }
+  removeAttachedFile(){
+    if(this.activeOption=="createnotes"){
+      this.attach_file_details = null;
+    }else if(this.activeOption=="editnotes"){
+      this.activeFileName = "";
+      this.attach_file_details = null;
+    }
+  }
+
+  initializeEditForm(){
+    this.editForm = new FormGroup({
+      'snippet_name': new FormControl(null),
+      'snippet_body': new FormControl(null),
+      'attachedfile':new FormControl(null)
+    });
   }
 
   checkSnippetFileAttached(flag){
@@ -31,6 +60,9 @@ export class PrivateStorageComponent implements OnInit {
 
   getAttachFileName(){
     return (this.attach_file_details)?this.attach_file_details.name:"No Files Attached"; 
+  }
+  getAttachFileNameForEditing(){
+    return this.activeFileName?this.activeFileName:this.getAttachFileName();
   }
 
   attachAttachment(file:FileList,inputTag:HTMLInputElement){
@@ -64,6 +96,8 @@ export class PrivateStorageComponent implements OnInit {
       this.contentHeader = "All Private Keeps";
     }else if(status="createnotes"){
       this.contentHeader = "Create Keep";
+    }else if(status="editnotes"){
+      this.contentHeader = "Edit Keep";
     }
   }
 
@@ -86,12 +120,23 @@ export class PrivateStorageComponent implements OnInit {
     this.authService.attachFile(this.attach_file_details,"privateKeep",pushKey)
     .then(
       ()=>{
+        this.resetSnippetDetails();
         console.log("success");
         this.getUserPrivateSnippets();
       },
       ()=>{
         console.log("error");
         this.resetSnippetAttachFile(snippet);
+      }
+    )
+  }
+  removeAttachFromBucket(pushKey,fileName){
+    this.authService.removeAttachFile("privateKeep",pushKey,fileName)
+    .then(
+      ()=>{
+        this.resetSnippetDetails();
+        console.log("success");
+        this.getUserPrivateSnippets();
       }
     )
   }
@@ -147,26 +192,51 @@ export class PrivateStorageComponent implements OnInit {
 
 
   populateUpdateSnippetForm(snippet){
-    this.updateSnippetForm.form.patchValue(
-      {
-        snippet_name:snippet.header,
-        snippet_body : snippet.body
-      }
-    );
+    this.showAction('editnotes');
+    this.editForm.patchValue({
+      snippet_name:snippet.header,
+      snippet_body : snippet.body,
+    });
     this.activeSnippetId = snippet.snippetId;
+    this.onloadFileName = snippet.attachFileName
+    this.activeFileName = snippet.attachFileName;
   }
-
-  updateSnippet(form:NgForm){
+  resetSnippetDetails(){
+    this.activeSnippetId = "";
+    this.activeFileName = "";
+    this.attach_file_details = null;
+    this.editForm.reset();
+    this.showAction("viewnotes");
+  }
+  updateSnippet(){
     if(this.activeSnippetId){
+      let attachFileName = this.activeFileName;
+      if(this.attach_file_details){
+        attachFileName = this.attach_file_details.name;
+      }
       const snippet = {
-        header:form.value.snippet_name,
-        body:form.value.snippet_body
+        header:this.editForm.get("snippet_name").value,
+        body:this.editForm.get("snippet_body").value,
+        attachFileName:attachFileName?attachFileName:null
       };
-      this.authService.updatePrivateSnippet(this.activeSnippetId,snippet)
+      
+      const pushKey = this.activeSnippetId;
+      this.authService.updatePrivateSnippet(snippet,pushKey)
         .then(
-          ()=>{
-            this.activeSnippetId = "";
-            this.getUserPrivateSnippets();             
+          (res)=>{
+            if(attachFileName==""&&this.attach_file_details==null){
+              this.removeAttachFromBucket(pushKey,this.onloadFileName);
+            }else if(this.attach_file_details){
+              this.publishSnippet(snippet,pushKey);
+            }
+            else{
+              this.resetSnippetDetails();
+              console.log("success");
+              this.getUserPrivateSnippets();
+            }
+          },
+          (error)=>{
+            console.log("Private Keep "+error);
           }
         )
     }

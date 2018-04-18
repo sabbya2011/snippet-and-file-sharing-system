@@ -96,6 +96,7 @@ app-user-management{
     flex-wrap: wrap;
     align-content: start;
     align-items: start;
+    
 }
 .pending-user-card{
     background-color: $white;
@@ -245,13 +246,18 @@ app-user-management{
             padding: 3px 15px;
             font-size: 15px;
             cursor: pointer;
+            justify-content: space-between;
             .attach-file-button{
-                display: inline-block;
+                display: flex;
                 margin-right: 15px;
                 color: $sidebar-text;
-                i{
-                    padding-top: 2px;
-                }   
+                align-items: center;  
+            }
+            .remove-file-button{
+                display: flex;
+                color: $sidebar-text;
+                align-items: center;   
+                z-index: 100;
             }
             .attach-file{
                 opacity: 0;

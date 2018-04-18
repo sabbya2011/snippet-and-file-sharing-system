@@ -166,8 +166,6 @@ export class AuthService{
             return this.pushKey;
         }
     }
-
-
     getUserspecificSnippets(){
         const uid = firebase.auth().currentUser.uid;
         return this.database.ref('privateKeep/'+uid).once('value');
@@ -177,13 +175,13 @@ export class AuthService{
         return this.database.ref('privateKeep/'+uid).child(pushKey).set(snippet);
          
     }
-    updatePrivateSnippet(snippetId,snippet){
+    updatePrivateSnippet(snippet,snippetId){
         const uid = firebase.auth().currentUser.uid;
-        return this.database.ref('privateKeep/'+uid+'/'+snippetId).set(snippet);
+        return this.database.ref().child('privateKeep/'+uid+'/'+snippetId).set(snippet);
     }
     removePrivateSnippet(snippetId){
         const uid = firebase.auth().currentUser.uid;
-        return this.database.ref('privateKeep/'+uid+'/'+snippetId).remove();
+        return this.database.ref().child('privateKeep/'+uid+'/'+snippetId).remove();
     }
 
 
@@ -258,6 +256,16 @@ export class AuthService{
         }
         const storageref = firebase.storage().ref().child(address);
         return storageref.put(file,metadata);
+    }
+
+    removeAttachFile(fileAddress,pushKey,fileName){
+        const uid = firebase.auth().currentUser.uid;
+        let address = "";
+        if(fileAddress=="privateKeep"){
+            address = `PrivateKeep/${uid}/${pushKey}/${fileName}`;
+        }
+        const storageref = firebase.storage().ref().child(address);
+        return storageref.delete();
     }
 
     downloadAttachedFile(fileAddress,fileKey,fileName){

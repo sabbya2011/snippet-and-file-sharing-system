@@ -1,9 +1,119 @@
-<div *ngIf="getClassroomSubscriptionInfoofUser()">
-  You are subscribed to Classroom {{userClassroom}}
+<div class="wrapper">
+  <div class="action-list" #actionList>
+    <header>
+      <i class="material-icons subject">subject</i>
+      <i class="material-icons key-left" (click)="hideNavigation(actionList,showActionList)">keyboard_arrow_left</i>
+      <span>Action List</span>
+    </header>
+    <section>
+      <ul class="primary-options">
+        <li class="primary-selectable" [ngClass]="activeActionClass('viewclassrooms')" (click)="showAction('viewclassrooms')">View Classrooms</li>
+
+        <li class="primary-selectable" [ngClass]="activeActionClass('createclassroom')" (click)="showAction('createclassroom')">Create Classroom</li>
+
+        <li class="primary-selectable" [ngClass]="activeActionClass('joinclassroom')" (click)="showAction('joinclassroom')">Join Classroom</li>
+      </ul>
+
+    </section>
+  </div>
+  <div class="contents">
+    <header>
+      <i #showActionList class="material-icons key-right" (click)="showNavigation(actionList,showActionList)">keyboard_arrow_right</i>
+      <span>{{contentHeader}}</span>
+    </header>
+    <section>
+      
+      <div class="subscribed-to-info pending-user-card" *ngIf="showItemsBySelectedActionList('viewclassrooms')">
+        <p *ngIf="getClassroomSubscriptionInfoofUser()">
+          You are subscribed to Classroom {{userClassroom}}
+        </p>
+        <p *ngIf="!getClassroomSubscriptionInfoofUser()">
+          You are not subscribed to any Classroom
+        </p>
+      </div>
+      
+      <ul *ngIf="showItemsBySelectedActionList('viewclassrooms')" class="user-list-container">
+        <li *ngFor="let classroom of allClassroomData" class="pending-user-card">
+          <div class="user-info">
+            <span class="pending-user-name">{{classroom.name}}</span>
+          </div>
+          <div class="action-buttons">
+            <span (click)="subscribeToClassroom(classroom.name)" class="active-pending-user" *ngIf="!checkExistingClassroom(classroom.name)">
+              <i class="material-icons">done_all</i>
+            </span>
+            <span (click)="unSubscribeToClassroom(classroom.name)" class="active-pending-user" *ngIf="checkExistingClassroom(classroom.name)">
+              <i class="material-icons">highlight_off</i>
+            </span>
+          </div>
+        </li>
+      </ul>
+
+      <ul *ngIf="showItemsBySelectedActionList('createnotes')" class="user-list-container">
+        <form (ngSubmit)="createPrivateSnippet(f_snippet)" #f_snippet="ngForm">
+
+          <button type="submit" class="submit-button">
+            <i class="material-icons">note_add</i>
+          </button>
+          <div class="btn-group">
+            <span class="attach-file-button">
+              <i class="material-icons">attach_file</i>
+            </span>
+            <input #attachTag type="file" class="attach-file" (change)="attachAttachment($event.target.files,attachTag)" />
+            <span class="attach-file-name">
+              {{getAttachFileName()}}
+            </span>
+            <span class="remove-file-button" *ngIf="existanceofAttachFile()" (click)="removeAttachedFile()">
+              <i class="material-icons">close</i>
+            </span>
+          </div>
+
+          <div class="form-group">
+            <input class="input-header" placeholder="Note Header" type="text" id="snippet_name" name="snippet_name" ngModel>
+          </div>
+          <div class="form-group">
+            <textarea class="input-body" id="snippet_body" placeholder="Note Details" name="snippet_body" ngModel></textarea>
+          </div>
+
+        </form>
+      </ul>
+
+      <ul *ngIf="showItemsBySelectedActionList('editnotes')" class="user-list-container">
+        <form (ngSubmit)="updateSnippet()" [formGroup]="editForm">
+
+          <button type="submit" class="submit-button">
+            <i class="material-icons">note_add</i>
+          </button>
+          <div class="btn-group">
+            <span class="attach-file-button">
+              <i class="material-icons">attach_file</i>
+            </span>
+            <input #attachTag type="file" class="attach-file" (change)="attachAttachment($event.target.files,attachTag)" formControlName="attachedfile"
+            />
+            <span class="attach-file-name">
+              {{getAttachFileNameForEditing()}}
+            </span>
+            <span class="remove-file-button" *ngIf="existanceofAttachFile()" (click)="removeAttachedFile()">
+              <i class="material-icons">close</i>
+            </span>
+          </div>
+
+          <div class="form-group">
+            <input class="input-header" placeholder="Note Header" type="text" id="snippet_name" name="snippet_name" formControlName="snippet_name">
+          </div>
+          <div class="form-group">
+            <textarea class="input-body" id="snippet_body" placeholder="Note Details" name="snippet_body" formControlName="snippet_body"></textarea>
+          </div>
+
+        </form>
+      </ul>
+
+    </section>
+  </div>
 </div>
-<div *ngIf="!getClassroomSubscriptionInfoofUser()">
-  You are not subscribed to any Classroom
-</div>
+
+
+
+<!-- 
 
 <div *ngIf="sameClassroomExists">This Classroom name is already present</div>
 <form *ngIf="userAccessibility" (ngSubmit)="onValidateForm(f)" #f="ngForm">
@@ -15,12 +125,7 @@
 </form>
 
 <h4>List of Classrooms</h4>
-<ul>
-  <li *ngFor="let classroom of allClassroomData">
-    <span>{{ classroom.name }}</span>
-    <button (click)="subscribeToClassroom(classroom.name)" [disabled]="checkExistingClassroom(classroom.name)">Subscribe Now</button>
-  </li>
-</ul>
+
 
 <div *ngIf="userAccessibility">
   <h4>Create new Snippet</h4>
@@ -73,4 +178,4 @@
 
 <div class="suggestion-box-container" *ngIf="getClassroomSubscriptionInfoofUser()">
   <app-suggestion-box></app-suggestion-box>
-</div>
+</div> -->

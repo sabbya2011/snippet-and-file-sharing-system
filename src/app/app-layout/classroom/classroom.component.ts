@@ -16,6 +16,8 @@ export class ClassroomComponent implements OnInit {
   snippetList : any[] = [];
   sameClassroomExists : boolean = false;
   userClassroom : string;
+  activeOption = "";
+  contentHeader = "Select From Action List";
 
   @ViewChild('f_update_snippet') updateSnippetForm : NgForm;
 
@@ -30,7 +32,35 @@ export class ClassroomComponent implements OnInit {
           this.loadListofSnippets();
         }
       )
+    this.showAction("viewclassrooms");
   }
+
+  showNavigation(actionList:HTMLElement,keyRight:HTMLElement){
+    actionList.style.display = 'flex';
+    keyRight.style.display = 'none';
+  }
+  hideNavigation(actionList:HTMLElement,keyRight:HTMLElement){
+    actionList.style.display = 'none';
+    keyRight.style.display = 'block';
+  }
+  activeActionClass(status:string){
+    return this.activeOption == status?"active-action-list":"";
+  }
+  showItemsBySelectedActionList(status:string){
+    return this.activeOption == status?true:false;
+  }
+
+  showAction(status:string){
+    this.activeOption = status;
+    if(status=="viewclassrooms"){
+      this.contentHeader = "Classroom List";
+    }else if(status="createclassroom"){
+      this.contentHeader = "Create Classroom";
+    }else if(status="joinclassroom"){
+      this.contentHeader = "Join Classroom";
+    }
+  }
+
 
   getClassroomSubscriptionInfoofUser(){
     return this.userClassroom?true:false;
@@ -108,6 +138,16 @@ export class ClassroomComponent implements OnInit {
         (res)=>{
           console.log("user has subscribed toclassroom "+classroomName);
           this.userClassroom = classroomName;
+          this.loadListofSnippets();
+        }
+      )
+  }
+  unSubscribeToClassroom(){
+    this.authService.subscribeClassroom(null)
+      .then(
+        (res)=>{
+          console.log("user has unsubscribed from any classroom");
+          this.userClassroom = null;
           this.loadListofSnippets();
         }
       )

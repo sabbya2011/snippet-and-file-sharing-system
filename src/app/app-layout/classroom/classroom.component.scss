@@ -1,3 +1,12 @@
+@import '~assets/styles/color-palette.scss';
+@import '~assets/styles/responsive-breaks.scss';
+@import '~assets/styles/helper-css.scss';
+.subscribed-to-info{
+    p{
+        @extend %font;
+        font-size: 20px;  
+    }
+}
 .suggestion-box-container{
     position: fixed;
     bottom: 0;
@@ -11,3 +20,344 @@
     max-height: 25vh;
     overflow: auto;
 }
+app-user-management{
+    height:100%;
+}
+.key-left, .key-right{
+    display:none;
+}
+.wrapper{
+    display:flex;
+    height:100vh;
+    .action-list{
+        flex: 1 1 250px;
+        display: flex;
+        flex-direction: column;
+        
+        header{
+           background-color: $action-header-background;
+           padding: 0 15px;
+           height:50px;
+           @extend %font;
+           i{
+               line-height:50px;
+               float:left;
+           }
+           span{
+            line-height:50px;
+            float:right;
+           } 
+        }
+        section{
+            flex:1 1 100%;
+            background-color: $white;
+            @extend %font;
+            font-size: 14px;
+            padding: 25px 10px 25px 10px;
+            .primary-options{
+                padding: 0 0 25px 0;
+                color:$action-text;
+                border-bottom: 2px solid $action-text;
+                .primary-selectable{
+                    padding: 10px 5px;
+                    cursor: pointer;
+                    transition: all 0.3s linear; 
+                    border-radius: 7px;
+                    &:hover {
+                        background-color: $action-hover-back;
+                        color:$action-hover-text;
+                        // font-weight: bold; 
+                    }
+                }
+                .primary-headers{
+                    padding: 10px 5px;
+                    cursor: default;
+                    font-size: 10px;   
+                }
+            }
+        }
+    }
+    .contents{
+        flex: 1 1 100%;
+        display:flex;
+        flex-direction: column;
+        height:100%;
+        overflow-y: auto;
+        position: relative;
+        header{
+            background-color: $sidebar-background;
+            padding: 0 15px;
+            height:50px;
+            flex: 1 1 50px;
+            @extend %font;
+            text-align: center;
+            span{
+             line-height:50px;
+             color:$sidebar-text;
+             font-size: 25px;
+            } 
+         }
+         section{
+             background-color:$action-focus-back;
+             flex: 1 1 100%;
+         }
+    }
+}
+.active-action-list{
+    background-color: $action-focus-back !important;
+    color: $action-focus-text !important;
+    
+}
+.user-list-container{
+    display: flex;
+    list-style: none;
+    height: 100%;
+    flex-wrap: wrap;
+    align-content: start;
+    align-items: start;
+    
+}
+.pending-user-card{
+    background-color: $white;
+    color: #aaaaaa;
+    flex: 1 1 calc( 33.33% - 20px );
+    margin: 10px;
+    padding: 10px 5px 10px 10px;
+    display:flex;
+    flex-direction: row;
+    max-height:120px;
+
+}
+
+.user-info{
+    display:flex;
+    flex-direction: column;
+    flex: 1 1 75%;
+    flex: 1 1 75%;
+    border-right: 2px solid $action-focus-text;
+    position: relative;
+    .attachment-flags{
+        position: absolute;
+        right: 0;
+        top: -15px;
+        .attachment-added-flag{
+            cursor:pointer;
+            height: 50px;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            background-color: $sidebar-background;
+            color: $sidebar-text;
+            border-radius: 5px 5px 16px 16px;
+            .flag-attach-view{
+                display:inline-block;
+            }
+        }
+    }
+}
+.pending-user-name{
+    color: $sidebar-text;
+    font-size: 20px;
+    @extend %font;
+    flex: 1 1 50%;
+    display: flex;
+    align-items: center;
+}
+.pending-user-mail{
+    color: $action-focus-text;
+    font-size: 12px;
+    @extend %font;
+    flex: 1 1 50%;
+    display: flex;
+    align-items: center;
+    overflow-y: hidden;
+    position: relative;
+    &:after{
+        display: inline-block;
+        content: " ";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: $gradient-after;
+        height: 10px;
+    }
+}
+.action-buttons{
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 25%;
+}
+.active-pending-user{
+    display: flex;
+    justify-content: center;
+    padding-bottom: 10px;
+    cursor: pointer;
+    i{
+        font-size: 40px;
+    }
+}
+.remove-pending-user{
+    display: flex;
+    justify-content: center;
+    padding-bottom: 10px;
+    cursor: pointer;
+    i{
+        font-size: 40px;
+    }
+}
+.active-common-txt-decoration{
+    @extend %font;
+    display: flex;
+    align-items: center;
+    flex:1;
+}
+.active-user-name{
+    color: $sidebar-text;
+    font-size: 20px;
+    flex:3;
+}
+.active-user-mail{
+    color: $action-focus-text;
+    font-size: 12px;
+    
+}
+.active-user-classroom{
+    color: $action-focus-text;
+    font-size: 12px;
+   
+}
+.active-user-contact{
+    color: $action-focus-text;
+    font-size: 12px;
+    
+}
+
+
+.user-list-container{
+    form{
+        @include container-size(100%,100%);
+        padding: 25px 15px;
+        .submit-button{
+            display: inline-block;
+            background: transparent;
+            border: 0;
+            color: $sidebar-text;
+            padding: 0;
+            position: absolute;
+            right: 10px;
+            top:5px;
+            cursor: pointer;
+            &:focus{
+                outline: 0;
+                border: 0;
+            }
+            i{
+                font-size: 40px;
+            }
+        } 
+        .btn-group{
+            display: flex;
+            position: relative;
+            background: $white;
+            border-radius: 4px;
+            box-shadow: 2px 2px 10px $sidebar-text;
+            padding: 3px 15px;
+            font-size: 15px;
+            cursor: pointer;
+            justify-content: space-between;
+            .attach-file-button{
+                display: flex;
+                margin-right: 15px;
+                color: $sidebar-text;
+                align-items: center;  
+            }
+            .remove-file-button{
+                display: flex;
+                color: $sidebar-text;
+                align-items: center;   
+                z-index: 100;
+            }
+            .attach-file{
+                opacity: 0;
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                z-index: 1;
+                top: 0;
+                left:0;
+            }
+            .attach-file-name{
+                @extend %font;
+                color:$sidebar-text;
+                line-height:30px;
+            }
+        }
+        
+        .form-group{
+            width: 100%;
+            margin: 20px 0;
+            .input-header{
+                @extend %font;
+                width: 100%;
+                border: 0;
+                font-size: 15px;
+                padding: 10px 15px;
+                color: $sidebar-text;
+                box-shadow: 2px 2px 10px $sidebar-text;
+                border-radius: 4px;
+                &:focus{
+                    border: 0;
+                    outline: 0;
+                }
+            }
+            .input-body{
+                @extend %font;
+                width: 100%;
+                min-height: 30vh;
+                border: 0;
+                font-size: 15px;
+                padding: 10px 15px;
+                color: $sidebar-text;
+                box-shadow: 2px 2px 10px $sidebar-text;
+                border-radius: 4px;
+                &:focus{
+                    border: 0;
+                    outline: 0;
+                }
+            }
+        }   
+        
+    }
+}
+
+
+@media screen and (max-width:$break-sm-width){
+    .subject{
+        display: none;
+    }
+    .key-left{
+        display:block;
+    }
+    .key-right{
+        line-height: 50px;
+        font-size: 40px;
+        float:left;
+        color:$sidebar-text;
+    }
+    .pending-user-card{
+        flex: 1 1 100%;
+    }
+}
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: $sidebar-text;
+  }
+  ::-moz-placeholder { /* Firefox 19+ */
+    color: $sidebar-text;
+  }
+  :-ms-input-placeholder { /* IE 10+ */
+    color: $sidebar-text;
+  }
+  :-moz-placeholder { /* Firefox 18- */
+    color: $sidebar-text;
+  }

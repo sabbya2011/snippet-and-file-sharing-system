@@ -59,8 +59,11 @@ app-user-management{
                 border-bottom: 2px solid $action-text;
             }
             .secondary-options{
-                padding: 0 0 25px 25px;
+                padding: 0 0 25px 0;
                 color:$action-text;
+                li{
+                    background-color:$white !important;
+                }
             }
         }
     }

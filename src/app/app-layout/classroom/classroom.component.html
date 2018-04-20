@@ -93,7 +93,7 @@
 
       
 
-      <ul *ngIf="showItemsBySelectedActionList('createnotes')" class="main-form-container">
+      <div *ngIf="showItemsBySelectedActionList('createnotes')" class="main-form-container">
         <form (ngSubmit)="createPrivateSnippet(f_snippet)" #f_snippet="ngForm">
 
           <button type="submit" class="submit-button">
@@ -120,7 +120,7 @@
           </div>
 
         </form>
-      </ul>
+      </div>
 
       <ul *ngIf="showItemsBySelectedActionList('editnotes')" class="main-form-container">
         <form (ngSubmit)="updateSnippet()" [formGroup]="editForm">

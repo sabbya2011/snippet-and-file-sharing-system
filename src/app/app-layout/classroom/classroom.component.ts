@@ -54,11 +54,18 @@ export class ClassroomComponent implements OnInit {
     this.activeOption = status;
     if(status=="viewclassrooms"){
       this.contentHeader = "Classroom List";
-    }else if(status="createclassroom"){
-      this.contentHeader = "Create Classroom";
-    }else if(status="joinclassroom"){
+    }else if(status=="creatematerials"){
+      this.contentHeader = "Create Materials";
+    }else if(status=="joinclassroom"){
       this.contentHeader = "Join Classroom";
+    }else if(status=="editclassroomnote"){
+      this.contentHeader = "Edit Material";
+    }else if(status=="viewclassroomnote"){
+      this.contentHeader = "View Material";
     }
+  }
+  checkSnippetFileAttached(flag){
+    return (flag)?true:false;
   }
 
 
@@ -124,6 +131,7 @@ export class ClassroomComponent implements OnInit {
   
   onValidateForm(form:NgForm){
     const formName = form.value.cls_name;
+    form.setValue({cls_name:''});
     this.authService.getAllClassrooms()
       .then(
         (res)=>{
@@ -195,6 +203,11 @@ export class ClassroomComponent implements OnInit {
   }
 
   populateUpdateSnippetForm(snippet){
+    if(this.userAccessibility){
+      this.showAction('editclassroomnote');
+    }else{
+      this.showAction('viewclassroomnote');
+    }
     this.updateSnippetFlag = true;
     this.updateSnippetForm.form.patchValue(
       {snippet_name:snippet.header,

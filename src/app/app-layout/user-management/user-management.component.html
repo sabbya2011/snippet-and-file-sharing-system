@@ -28,7 +28,7 @@
     </header>
     <section>
 
-      <ul *ngIf="showItemsBySelectedActionList('pending')" class="user-list-container">
+      <ul *ngIf="showItemsBySelectedActionList('pending')" class="main-form-container">
         <li *ngFor="let pendingUser of pendingUsersData" class="pending-user-card">
           <div class="user-info">
             <span class="pending-user-name">{{pendingUser.displayName}}</span>
@@ -45,7 +45,7 @@
         </li>
       </ul>
 
-      <ul *ngIf="showItemsBySelectedActionList('activated')" class="user-list-container">
+      <ul *ngIf="showItemsBySelectedActionList('activated')" class="main-form-container">
         <li *ngFor="let activeUser of activeUsersData" class="pending-user-card">
 
           <!-- <div class="user-image">

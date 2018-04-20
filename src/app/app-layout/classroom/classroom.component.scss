@@ -54,10 +54,11 @@ app-user-management{
             @extend %font;
             font-size: 14px;
             padding: 25px 10px 25px 10px;
-            .primary-options{
-                padding: 0 0 25px 0;
-                color:$action-text;
-                border-bottom: 2px solid $action-text;
+
+            .section-container{
+                @include container-size(100%,100%);
+            }
+            .primary-options, .secondary-options{
                 .primary-selectable{
                     padding: 10px 5px;
                     cursor: pointer;
@@ -74,6 +75,15 @@ app-user-management{
                     cursor: default;
                     font-size: 10px;   
                 }
+            }
+            .primary-options{
+                padding: 0 0 25px 0;
+                color:$action-text;
+                border-bottom: 2px solid $action-text;
+            }
+            .secondary-options{
+                padding: 0 0 25px 25px;
+                color:$action-text;
             }
         }
     }
@@ -108,7 +118,7 @@ app-user-management{
     color: $action-focus-text !important;
     
 }
-.user-list-container{
+.main-form-container{
     display: flex;
     list-style: none;
     height: 100%;
@@ -156,22 +166,19 @@ app-user-management{
     }
 }
 .pending-user-name{
-    color: $sidebar-text;
-    font-size: 20px;
-    @extend %font;
-    flex: 1 1 50%;
-    display: flex;
-    align-items: center;
+    line-height:50px;
 }
 .pending-user-mail{
+    align-items: center;
+    position: relative;
+}
+.pending-user-mail, .pending-user-name{ 
     color: $action-focus-text;
     font-size: 12px;
     @extend %font;
     flex: 1 1 50%;
     display: flex;
-    align-items: center;
-    overflow-y: hidden;
-    position: relative;
+    overflow: hidden;
     &:after{
         display: inline-block;
         content: " ";
@@ -183,6 +190,7 @@ app-user-management{
         height: 10px;
     }
 }
+
 .action-buttons{
     display: flex;
     flex-direction: column;
@@ -234,7 +242,7 @@ app-user-management{
 }
 
 
-.user-list-container{
+.main-form-container{
     form{
         @include container-size(100%,100%);
         padding: 25px 15px;
@@ -330,7 +338,30 @@ app-user-management{
         
     }
 }
-
+.less-spread-form{
+    padding: 0 12px !important;
+    position:relative;
+}
+.inline-submit-button{
+    display: inline-block;
+    background: transparent;
+    border: 0;
+    color: #919BA6;
+    padding: 0;
+    cursor: pointer;
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translate(0,-50%);
+    z-index: 10;
+    &:focus{
+        outline: 0;
+        border: 0;
+    }
+    i{
+        font-size: 30px;
+    }
+}
 
 @media screen and (max-width:$break-sm-width){
     .subject{

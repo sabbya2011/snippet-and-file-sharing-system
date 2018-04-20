@@ -16,8 +16,11 @@
           [ngClass]="activeActionClass('createnotes')" 
           (click)="showAction('createnotes')">Create Note</li>
 
+        
+      </ul>
+      <ul class="secondary-options">
         <li class="primary-selectable active-action-list" 
-          *ngIf="activeOption=='editnotes'" >Edit Note</li>
+        *ngIf="activeOption=='editnotes'" >Edit Note</li>
       </ul>
       
     </section>
@@ -30,7 +33,7 @@
     </header>
     <section>
 
-      <ul *ngIf="showItemsBySelectedActionList('viewnotes')" class="user-list-container">
+      <ul *ngIf="showItemsBySelectedActionList('viewnotes')" class="main-form-container">
         <li *ngFor="let snippet of snippetList" class="pending-user-card">
           <div class="user-info">
             <div class="attachment-flags">
@@ -54,7 +57,7 @@
         </li>
       </ul>
 
-      <ul *ngIf="showItemsBySelectedActionList('createnotes')" class="user-list-container">
+      <ul *ngIf="showItemsBySelectedActionList('createnotes')" class="main-form-container">
         <form (ngSubmit)="createPrivateSnippet(f_snippet)" #f_snippet="ngForm">
           
           <button type="submit" class="submit-button">
@@ -87,7 +90,7 @@
         </form>
       </ul>
 
-      <ul *ngIf="showItemsBySelectedActionList('editnotes')" class="user-list-container">
+      <ul *ngIf="showItemsBySelectedActionList('editnotes')" class="main-form-container">
         <form (ngSubmit)="updateSnippet()" [formGroup]="editForm">
           
           <button type="submit" class="submit-button">

@@ -88,7 +88,7 @@ app-user-management{
     color: $action-focus-text !important;
     
 }
-.user-list-container{
+.main-form-container{
     display: flex;
     list-style: none;
     height: 100%;
@@ -113,20 +113,29 @@ app-user-management{
     border-right: 2px solid $action-focus-text;
 }
 .pending-user-name{
-    color: $sidebar-text;
-    font-size: 20px;
-    @extend %font;
-    flex: 1 1 50%;
-    display: flex;
-    align-items: center;
+    line-height:50px;
 }
 .pending-user-mail{
+    align-items: center;
+    position: relative;
+}
+.pending-user-mail, .pending-user-name{ 
     color: $action-focus-text;
     font-size: 12px;
     @extend %font;
     flex: 1 1 50%;
     display: flex;
-    align-items: center;
+    overflow: hidden;
+    &:after{
+        display: inline-block;
+        content: " ";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: $gradient-after;
+        height: 10px;
+    }
 }
 .action-buttons{
     display: flex;

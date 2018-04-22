@@ -34,7 +34,7 @@ export class SigninComponent implements OnInit {
     onLogin(){
       const email = this.email.value;
       const password = this.password.value;
-      console.log(this.password);
+      
       if(!this.email.valid || !this.password.valid){
         const error = this.msgService.userCredentialIssue();
         this.showSnackBar(error);

@@ -16,6 +16,7 @@ export class PrivateStorageComponent implements OnInit {
   contentHeader = "Select From Action List";
   attach_file_details : File = null;
   onloadFileName : string = '';
+  downloadFileOnEditFlag : boolean;
   editForm : FormGroup;
 
 
@@ -43,6 +44,7 @@ export class PrivateStorageComponent implements OnInit {
     }else if(this.activeOption=="editnotes"){
       this.activeFileName = "";
       this.attach_file_details = null;
+      this.downloadFileOnEditFlag = false;
     }
   }
 
@@ -198,7 +200,8 @@ export class PrivateStorageComponent implements OnInit {
       snippet_body : snippet.body,
     });
     this.activeSnippetId = snippet.snippetId;
-    this.onloadFileName = snippet.attachFileName
+    this.onloadFileName = snippet.attachFileName;
+    this.downloadFileOnEditFlag = true;
     this.activeFileName = snippet.attachFileName;
   }
   resetSnippetDetails(){
@@ -249,7 +252,18 @@ export class PrivateStorageComponent implements OnInit {
         }
       )
   }
-
+  checkEditDownload(){
+    return (this.onloadFileName && this.downloadFileOnEditFlag)?true:false;
+  }
+  downloadFileFromExpandedView(){
+    const snippet = {
+      snippetId : this.activeSnippetId,
+      header:this.editForm.get("snippet_name").value,
+      body:this.editForm.get("snippet_body").value,
+      attachFileName:this.onloadFileName
+    };
+    this.downloadAttachedFile(snippet);
+  }
   downloadAttachedFile(snippet){
     const snippet_key = snippet.snippetId;
     const snippet_attach_file = snippet.attachFileName;

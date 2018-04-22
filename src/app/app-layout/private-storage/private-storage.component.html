@@ -72,10 +72,13 @@
               <span class="attach-file-name">
                 {{getAttachFileName()}}
               </span>
-              <span class="remove-file-button" *ngIf="existanceofAttachFile()" 
-              (click)="removeAttachedFile()">
-                <i class="material-icons">close</i>
+              <span class="remove-download-group">
+                <span class="remove-file-button" *ngIf="existanceofAttachFile()" 
+                (click)="removeAttachedFile()">
+                  <i class="material-icons">close</i>
+                </span>
               </span>
+              
           </div>
           
           <div class="form-group">
@@ -106,9 +109,16 @@
               <span class="attach-file-name">
                 {{getAttachFileNameForEditing()}}
               </span>
-              <span class="remove-file-button" *ngIf="existanceofAttachFile()" 
-              (click)="removeAttachedFile()">
-                <i class="material-icons">close</i>
+              
+              <span class="remove-download-group">
+                <span class="download-file-button" *ngIf="checkEditDownload()"
+                  (click)="downloadFileFromExpandedView()">
+                    <i class="material-icons">file_download</i>
+                </span>
+                <span class="remove-file-button" *ngIf="existanceofAttachFile()" 
+                  (click)="removeAttachedFile()">
+                  <i class="material-icons">close</i>
+                </span>
               </span>
           </div>
           

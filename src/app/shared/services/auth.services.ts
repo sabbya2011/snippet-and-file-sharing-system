@@ -146,8 +146,8 @@ export class AuthService{
 
         return fb.child('users/'+userId).update(classroomData);
     }
-    createClassroomSnippet(classroomName,snippet){
-        return this.database.ref('classroomSnippets/'+classroomName).push().set(snippet);
+    createClassroomSnippet(classroomName,snippet,pushKey){
+        return this.database.ref('classroomSnippets/'+classroomName).child(pushKey).set(snippet);
     }
     loadClassroomSpecificSnippets(classroomName){
         return this.database.ref('classroomSnippets/'+classroomName).once('value');
@@ -159,10 +159,13 @@ export class AuthService{
         return this.database.ref('classroomSnippets/'+classroomName+'/'+snippetId).remove();
     }
 
-    findPushKey(type){
-        const uid = firebase.auth().currentUser.uid;
+    findPushKey(type,identifierObj=null){
         if(type=="privateKeep"){
+            const uid = firebase.auth().currentUser.uid;
             this.pushKey = this.database.ref('privateKeep/'+uid).push().key;
+            return this.pushKey;
+        }else if(type=="classroom"){
+            this.pushKey = this.database.ref('classroomSnippets/'+identifierObj.classroomId).push().key;
             return this.pushKey;
         }
     }
@@ -245,34 +248,41 @@ export class AuthService{
     }
 
 
-    attachFile(file:File,fileAddress,pushKey){
-        const uid = firebase.auth().currentUser.uid;
+    attachFile(file:File,fileAddress,pushKey,identifierObj=null){
+
         const metadata = {
             contentType: file.type
         };
         let address = "";
         if(fileAddress=="privateKeep"){
+            const uid = firebase.auth().currentUser.uid;
             address = `PrivateKeep/${uid}/${pushKey}/${file.name}`;
+        }else if(fileAddress=="classroom"){
+            address = `classroomSnippets/${identifierObj.classroomId}/${pushKey}/${file.name}`;
         }
         const storageref = firebase.storage().ref().child(address);
         return storageref.put(file,metadata);
     }
 
-    removeAttachFile(fileAddress,pushKey,fileName){
-        const uid = firebase.auth().currentUser.uid;
+    removeAttachFile(fileAddress,pushKey,fileName,identifier=null){
         let address = "";
         if(fileAddress=="privateKeep"){
+            const uid = firebase.auth().currentUser.uid;
             address = `PrivateKeep/${uid}/${pushKey}/${fileName}`;
+        }else if(fileAddress=="classroom"){
+            address = `PrivateKeep/${identifier.classroomId}/${pushKey}/${fileName}`;
         }
         const storageref = firebase.storage().ref().child(address);
         return storageref.delete();
     }
 
-    downloadAttachedFile(fileAddress,fileKey,fileName){
+    downloadAttachedFile(fileAddress,fileKey,fileName,identifier=null){
         const uid = firebase.auth().currentUser.uid;
         let address = "";
         if(fileAddress=="privateKeep"){
             address = `PrivateKeep/${uid}/${fileKey}/${fileName}`;
+        }else if(fileAddress=="classroom"){
+            address = `classroomSnippets/${identifier.classroomId}/${fileKey}/${fileName}`;
         }
         const storageref = firebase.storage().ref().child(address);
         return storageref.getDownloadURL();

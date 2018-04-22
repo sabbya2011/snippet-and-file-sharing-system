@@ -104,7 +104,11 @@ export class SuggestionBoxComponent implements OnInit {
     }; 
     this.getUserClassroom()
       .then((userClassroom)=>{
-        this.authService.createClassroomSnippet(userClassroom,snippet)
+        const identifier = {
+          classroomId : userClassroom
+        }
+        const pushKey = this.authService.findPushKey("classroom",identifier);
+        this.authService.createClassroomSnippet(userClassroom,snippet,pushKey)
           .then(
             ()=>{
               this.loadAllSnippets();             

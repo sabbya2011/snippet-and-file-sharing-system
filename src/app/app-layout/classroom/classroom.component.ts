@@ -18,6 +18,8 @@ export class ClassroomComponent implements OnInit {
   userClassroom : string;
   activeOption = "";
   contentHeader = "Select From Action List";
+  attach_file_details : File = null;
+  activeFileName :string = '';
 
   @ViewChild('f_update_snippet') updateSnippetForm : NgForm;
 
@@ -67,7 +69,12 @@ export class ClassroomComponent implements OnInit {
   checkSnippetFileAttached(flag){
     return (flag)?true:false;
   }
-
+  getAttachFileName(){
+    return (this.attach_file_details)?this.attach_file_details.name:"No Files Attached"; 
+  }
+  getAttachFileNameForEditing(){
+    return this.activeFileName?this.activeFileName:this.getAttachFileName();
+  }
 
   getClassroomSubscriptionInfoofUser(){
     return this.userClassroom?true:false;
@@ -161,22 +168,123 @@ export class ClassroomComponent implements OnInit {
       )
   }
 
-  createSnippet(form:NgForm){
-    const snippet = {
-      header:form.value.snippet_name,
-      body:form.value.snippet_body
-    }; 
-    this.getUserClassroom().then(
+  attachAttachment(file:FileList,inputTag:HTMLInputElement){
+    const fileItem = file.item(0);
+    if(fileItem.type!="application/x-zip-compressed" || fileItem.size>15000000){
+      this.attach_file_details = null;
+      inputTag.value = "";
+    }else{
+      this.attach_file_details = file.item(0);
+    }
+  }
+  existanceofAttachFile() : boolean{
+    if(this.activeOption=="createnotes"){
+      return (this.attach_file_details)?true:false;
+    }
+    else if(this.activeOption=="editnotes"){
+      return this.activeFileName?true:(this.attach_file_details)?true:false;
+    }
+  }
+  removeAttachedFile(){
+    if(this.activeOption=="createnotes"){
+      this.attach_file_details = null;
+    }else if(this.activeOption=="editnotes"){
+      this.activeFileName = "";
+      this.attach_file_details = null;
+    }
+  }
+  downloadAttachedFile(snippet){
+    const snippet_key = snippet.snippetId;
+    const snippet_attach_file = snippet.attachFileName;
+    const identifier = {
+      classroomId : this.userClassroom
+    }
+    this.authService.downloadAttachedFile("classroom",snippet_key,snippet_attach_file,identifier)
+    .then(
+      (dataurl)=>{
+        var a = document.createElement("a");
+        a.href = dataurl;
+        a.setAttribute("download", snippet_attach_file);
+        var b = document.createEvent("MouseEvents");
+        b.initEvent("click", false, true);
+        a.dispatchEvent(b);
+        return false;
+      }
+    )
+  }
+  resetSnippetDetails(){
+    this.activeSnippetId = "";
+    this.activeFileName = "";
+    this.attach_file_details = null;
+    //this.editForm.reset();
+    this.showAction("joinclassroom");
+  }
+  resetSnippetAttachFile(snippet){
+    snippet.attachFileName = "";
+    const identifier = {
+      classroomId : this.userClassroom
+    }
+    const pushKey = this.authService.findPushKey("classroom",identifier);
+    this.authService.createClassroomSnippet(this.userClassroom,snippet,pushKey)
+      .then(
+        (res)=>{
+          console.log("reverted");
+          this.loadListofSnippets();
+        },
+        (error)=>{
+          console.log("error "+error);
+        }
+      )
+  }
+  publishSnippet(snippet,pushKey,idenrifier = null){
+    this.authService.attachFile(this.attach_file_details,"classroom",pushKey,idenrifier)
+    .then(
       ()=>{
-        this.authService.createClassroomSnippet(this.userClassroom,snippet)
-          .then(
-            ()=>{
+        this.resetSnippetDetails();
+        console.log("success");
+        this.loadListofSnippets();
+      },
+      ()=>{
+        console.log("error");
+        this.resetSnippetAttachFile(snippet);
+      }
+    )
+  }
+  createSnippet(form:NgForm){
+    
+      let attachFileName = "";
+      if(this.attach_file_details){
+        attachFileName = this.attach_file_details.name;
+      }
+  
+      const snippet = {
+        header:form.value.snippet_name,
+        body:form.value.snippet_body,
+        attachFileName:attachFileName
+      };
+      const idenrifier = {
+        classroomId: this.userClassroom
+      }
+      const pushKey = this.authService.findPushKey("classroom",idenrifier);
+      
+      
+      this.authService.createClassroomSnippet(this.userClassroom,snippet,pushKey)
+        .then(
+          (res)=>{
+            if(attachFileName){
+              this.publishSnippet(snippet,pushKey,idenrifier);
+            }else{
+              console.log("success");
               this.loadListofSnippets();             
             }
-          )
-      }
-    );
-  }
+          },
+          (error)=>{
+            console.log("Private Keep "+error);
+          }
+        )
+    }
+
+  
 
   loadListofSnippets(){
     if(!this.userClassroom){

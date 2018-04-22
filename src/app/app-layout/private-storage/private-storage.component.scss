@@ -147,14 +147,16 @@ app-user-management{
 }
 .pending-user-name{
     line-height:50px;
+    font-size: 18px;
 }
 .pending-user-mail{
     align-items: center;
     position: relative;
+    font-size: 12px;
 }
 .pending-user-mail, .pending-user-name{ 
     color: $action-focus-text;
-    font-size: 12px;
+    
     @extend %font;
     flex: 1 1 50%;
     display: flex;
@@ -259,11 +261,18 @@ app-user-management{
                 color: $sidebar-text;
                 align-items: center;  
             }
-            .remove-file-button{
-                display: flex;
-                color: $sidebar-text;
-                align-items: center;   
+            .remove-download-group{
+                position: relative;
                 z-index: 100;
+                display: flex;
+                span{
+                    display: flex;
+                    color: $sidebar-text;
+                    align-items: center;
+                }
+            }
+            .download-file-button, {
+                margin-right:15px;
             }
             .attach-file{
                 opacity: 0;

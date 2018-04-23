@@ -309,6 +309,7 @@ app-user-management{
             }
             .input-body{
                 @extend %font;
+                resize: vertical;
                 width: 100%;
                 min-height: 30vh;
                 border: 0;

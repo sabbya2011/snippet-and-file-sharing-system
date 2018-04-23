@@ -300,11 +300,18 @@ app-user-management{
                 color: $sidebar-text;
                 align-items: center;  
             }
-            .remove-file-button{
-                display: flex;
-                color: $sidebar-text;
-                align-items: center;   
+            .remove-download-group{
+                position: relative;
                 z-index: 100;
+                display: flex;
+                span{
+                    display: flex;
+                    color: $sidebar-text;
+                    align-items: center;
+                }
+            }
+            .download-file-button, {
+                margin-right:15px;
             }
             .attach-file{
                 opacity: 0;
@@ -341,6 +348,7 @@ app-user-management{
             }
             .input-body{
                 @extend %font;
+                resize: vertical;
                 width: 100%;
                 min-height: 30vh;
                 border: 0;

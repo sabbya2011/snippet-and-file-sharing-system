@@ -103,7 +103,8 @@
               <span class="attach-file-button">
                 <i class="material-icons">attach_file</i>
               </span>
-              <input #attachTag type="file" class="attach-file" 
+              <input #attachTag type="file" class="attach-file" title=" " 
+                *ngIf="!checkEditDownload()"
                 (change)="attachAttachment($event.target.files,attachTag)"
                 formControlName="attachedfile"/>
               <span class="attach-file-name">

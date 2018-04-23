@@ -118,7 +118,7 @@ export class PrivateStorageComponent implements OnInit {
       )
   }
 
-  publishSnippet(snippet,pushKey){
+  publishAttachFile(snippet,pushKey){
     this.authService.attachFile(this.attach_file_details,"privateKeep",pushKey)
     .then(
       ()=>{
@@ -159,7 +159,7 @@ export class PrivateStorageComponent implements OnInit {
       .then(
         (res)=>{
           if(attachFileName){
-            this.publishSnippet(snippet,pushKey);
+            this.publishAttachFile(snippet,pushKey);
           }else{
             console.log("success");
             this.getUserPrivateSnippets();
@@ -227,10 +227,11 @@ export class PrivateStorageComponent implements OnInit {
       this.authService.updatePrivateSnippet(snippet,pushKey)
         .then(
           (res)=>{
-            if(attachFileName==""&&this.attach_file_details==null){
+            if(!this.checkEditDownload()){
               this.removeAttachFromBucket(pushKey,this.onloadFileName);
-            }else if(this.attach_file_details){
-              this.publishSnippet(snippet,pushKey);
+            }
+            if(this.attach_file_details){
+              this.publishAttachFile(snippet,pushKey);
             }
             else{
               this.resetSnippetDetails();
@@ -248,6 +249,9 @@ export class PrivateStorageComponent implements OnInit {
     this.authService.removePrivateSnippet(snippet.snippetId)
       .then(
         ()=>{
+          if(snippet.attachFileName){
+            this.authService.removeAttachFile("privateKeep",snippet.snippetId,snippet.attachFileName);
+          }
           this.getUserPrivateSnippets();
         }
       )

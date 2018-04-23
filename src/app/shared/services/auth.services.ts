@@ -270,7 +270,7 @@ export class AuthService{
             const uid = firebase.auth().currentUser.uid;
             address = `PrivateKeep/${uid}/${pushKey}/${fileName}`;
         }else if(fileAddress=="classroom"){
-            address = `PrivateKeep/${identifier.classroomId}/${pushKey}/${fileName}`;
+            address = `classroomSnippets/${identifier.classroomId}/${pushKey}/${fileName}`;
         }
         const storageref = firebase.storage().ref().child(address);
         return storageref.delete();

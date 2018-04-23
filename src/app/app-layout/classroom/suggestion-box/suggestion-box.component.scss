@@ -1,4 +1,157 @@
-.suggestion-card{
-    border:3px solid lime;
-    margin: 2px;
+@import '~assets/styles/color-palette.scss';
+@import '~assets/styles/responsive-breaks.scss';
+@import '~assets/styles/helper-css.scss';
+.main-form-container{
+    form{
+        @include container-size(100%,100%);
+        padding: 25px 15px;
+        .submit-button{
+            display: inline-block;
+            background: transparent;
+            border: 0;
+            color: $sidebar-text;
+            padding: 0;
+            position: absolute;
+            right: 10px;
+            top:5px;
+            cursor: pointer;
+            &:focus{
+                outline: 0;
+                border: 0;
+            }
+            i{
+                font-size: 40px;
+            }
+        } 
+        
+        
+        .form-group{
+            width: 100%;
+            margin: 20px 0;
+            .input-header{
+                @extend %font;
+                width: 100%;
+                border: 0;
+                font-size: 15px;
+                padding: 10px 15px;
+                color: $sidebar-text;
+                box-shadow: 2px 2px 10px $sidebar-text;
+                border-radius: 4px;
+                &:focus{
+                    border: 0;
+                    outline: 0;
+                }
+            }
+            .input-body{
+                @extend %font;
+                resize: vertical;
+                width: 100%;
+                min-height: 30vh;
+                border: 0;
+                font-size: 15px;
+                padding: 10px 15px;
+                color: $sidebar-text;
+                box-shadow: 2px 2px 10px $sidebar-text;
+                border-radius: 4px;
+                &:focus{
+                    border: 0;
+                    outline: 0;
+                }
+            }
+        }   
+        
+    }
+}
+.main-form-container{
+    display: flex;
+    list-style: none;
+    width:100%;
+    flex-wrap: wrap;
+    align-content: start;
+    align-items: start;
+    
+}
+.pending-user-card{
+    background-color: $white;
+    color: #aaaaaa;
+    flex: 1 1 calc( 33.33% - 20px );
+    margin: 10px;
+    padding: 10px 5px 10px 10px;
+    display:flex;
+    flex-direction: row;
+    max-height:120px;
+}
+.user-info{
+    display:flex;
+    flex-direction: column;
+    flex: 1 1 75%;
+    flex: 1 1 75%;
+    border-right: 2px solid $action-focus-text;
+    position: relative;
+}
+.pending-user-name{
+    
+    font-size: 18px;
+}
+.pending-user-mail{
+    align-items: center;
+    position: relative;
+    font-size: 14px;
+    
+}
+.pending-user-extra{
+    position: relative;
+    font-size: 12px;
+}
+.pending-user-mail, .pending-user-name{
+    display: flex;
+    overflow: hidden;
+    flex: 1 1 35%;
+    &:after{
+        display: inline-block;
+        content: " ";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: $gradient-after;
+        height: 10px;
+    }
+}
+.pending-user-mail, .pending-user-name, .pending-user-extra{ 
+    color: $action-focus-text;
+    @extend %font;
+}
+.action-buttons{
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 25%;
+}
+.active-pending-user{
+    display: flex;
+    justify-content: center;
+    padding-bottom: 10px;
+    cursor: pointer;
+    i{
+        font-size: 40px;
+    }
+}
+.fixed-back{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(0,0,0,0.7);
+}
+.fixed-fore{
+    position: absolute;
+    height: 85%;
+    width: 85%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    left: 50%;
+}
+.added-main-form{
+    height:100%;
 }

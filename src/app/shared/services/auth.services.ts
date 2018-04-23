@@ -94,7 +94,7 @@ export class AuthService{
     }
 
     getUserDisplayName(){
-        return this.userDetails.userDisplayName;
+        return this.userDetails.displayName;
     }
 
     checkUserActivationStatus(userData){

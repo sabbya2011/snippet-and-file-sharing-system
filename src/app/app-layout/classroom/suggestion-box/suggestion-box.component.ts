@@ -10,11 +10,22 @@ import { AuthService } from '../../../shared/services/auth.services';
 export class SuggestionBoxComponent implements OnInit {
   snippetList : any[] = [];
   userAccessibility : boolean = false;
+  active_snippet_head;
+  active_snippet_body;
+  show_active : boolean = false;
   constructor(private authService : AuthService) { }
 
   ngOnInit() {
     this.userAccessibility = this.authService.getUserAdminPriviledge();
     this.loadAllSnippets();
+  }
+  hideActive(){
+    this.show_active = false;
+  }
+  viewInFull(head,body){
+    this.active_snippet_head = head;
+    this.active_snippet_body = body;
+    this.show_active = true;
   }
   
   clearSnippetForm(form:NgForm){

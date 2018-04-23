@@ -83,6 +83,8 @@ export class ClassroomComponent implements OnInit {
       this.contentHeader = "Edit Material";
     }else if(status=="viewclassroomnote"){
       this.contentHeader = "View Material";
+    }else if(status=="viewsuggestionbox"){
+      this.contentHeader = "Suggestion Box";
     }
   }
   checkSnippetFileAttached(flag){
@@ -95,6 +97,9 @@ export class ClassroomComponent implements OnInit {
     return this.activeFileName?this.activeFileName:this.getAttachFileName();
   }
 
+  showSuggestionBox(){
+    return (this.getClassroomSubscriptionInfoofUser() && this.showItemsBySelectedActionList('viewsuggestionbox'))
+  }
   getClassroomSubscriptionInfoofUser(){
     return this.userClassroom?true:false;
   }

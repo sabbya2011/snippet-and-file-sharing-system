@@ -22,19 +22,7 @@
         font-size: 20px;  
     }
 }
-.suggestion-box-container{
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    margin-right: 20px;
-    border: 4px solid #3cb3e7;
-    min-width: 50vw;
-    background: rgba(255,255,255,0.7);
-    z-index: 1;
-    box-shadow: -5px 0px 20px 0px #ffffff;
-    max-height: 25vh;
-    overflow: auto;
-}
+
 app-user-management{
     height:100%;
 }

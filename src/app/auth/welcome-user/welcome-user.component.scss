@@ -68,9 +68,11 @@
             flex:1;
             text-align: center;
             span{
-                @extend %font;
-                color:$white;
-                opacity:0.5;
+                a{
+                    @extend %font;
+                    color:$white;
+                    opacity:0.5;
+                }
             }
         }
     }

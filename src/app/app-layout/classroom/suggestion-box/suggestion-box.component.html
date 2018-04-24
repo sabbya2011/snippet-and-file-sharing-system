@@ -39,15 +39,16 @@
   </li>
 </ul>  
 
-<div class="fixed-back" (click)="hideActive()" *ngIf="show_active">
+<div class="fixed-container" *ngIf="show_active">
+  <div class="fixed-back" (click)="hideActive()"></div>
   <div class="fixed-fore">
     <div class="main-form-container added-main-form">
       <form>
         <div class="form-group">
-          <input [value]="active_snippet_head">
+          <input disabled class="input-header" [value]="active_snippet_head">
         </div>
         <div class="form-group">
-          <textarea >{{active_snippet_body}}</textarea>
+          <textarea class="input-body" disabled>{{active_snippet_body}}</textarea>
         </div>
       </form>
     </div>

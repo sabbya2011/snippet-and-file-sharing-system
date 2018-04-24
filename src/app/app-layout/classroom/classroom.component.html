@@ -137,7 +137,7 @@
               <i class="material-icons">attach_file</i>
             </span>
             <input #attachTagEdit type="file" class="attach-file" 
-              *ngIf="!checkEditDownload()" title=" "
+              *ngIf="enableDownloadTag()" title=" "
               (change)="attachAttachment($event.target.files,attachTagEdit)" 
               formControlName="attachedfile"
             />

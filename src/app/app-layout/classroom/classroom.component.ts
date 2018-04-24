@@ -421,6 +421,9 @@ export class ClassroomComponent implements OnInit {
       )
   }
 
+  enableDownloadTag(){
+    return (!this.checkEditDownload() && this.activeOption=="editclassroomnote");
+  }
   checkEditDownload(){
     return (this.onloadFileName && this.downloadFileOnEditFlag)?true:false;
   }

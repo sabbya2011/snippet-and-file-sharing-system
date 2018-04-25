@@ -1,12 +1,12 @@
 <div class="user-container">
   <header>
     <div class="image-container">
-      <img [src]="profilePicture.url" alt="" srcset="">
+      <div class="user-image" [ngStyle]="{'background-image': 'url('+profilePicture.url+')'}"></div>
       <div class="filter-user-image"></div>
     </div>
     <div class="image-upload">
       <i class="material-icons">camera_alt</i>
-      <input type="file" #profilePhoto (change)="updateUserProfilePicture($event.target.files)"/>
+      <input type="file" title=" " #profilePhoto (change)="updateUserProfilePicture($event.target.files)"/>
     </div>
     <span class="welcome-message">
       WELCOME {{ userDetails.displayName }}

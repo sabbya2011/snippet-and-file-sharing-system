@@ -16,7 +16,7 @@
 </div>
 
   
- <button *ngIf="userAccessibility" class="btn-danger" (click)="clearAllSuggestions()">Delete All Suggestions</button>
+ <button mat-raised-button *ngIf="userAccessibility" class="btn-danger-clear" (click)="clearAllSuggestions()">Delete All Suggestions</button>
 
  <ul class="main-form-container">
   <li *ngFor="let snippet of snippetList" class="pending-user-card">

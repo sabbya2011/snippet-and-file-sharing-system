@@ -4,7 +4,7 @@
 .main-form-container{
     form{
         @include container-size(100%,100%);
-        padding: 25px 15px;
+        padding: 0 10px;
         .submit-button{
             display: inline-block;
             background: transparent;
@@ -165,6 +165,10 @@
 }
 .added-main-form{
     height:100%;
+}
+.btn-danger-clear{
+    background: $danger-color;
+    margin-left: 10px;
 }
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
     color: $sidebar-text;

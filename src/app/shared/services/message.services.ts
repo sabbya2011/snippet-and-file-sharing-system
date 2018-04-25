@@ -36,4 +36,10 @@ export class MsgService {
     needValue(){
         return "You must enter a value";
     }
+    passwordResetEmail(){
+        return "Password Reset Email is sent";
+    }
+    userDontExist(){
+        return "Sorry! Not able to find the user";
+    }
 }

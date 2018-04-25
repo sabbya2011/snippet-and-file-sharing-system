@@ -17,7 +17,7 @@
       It takes hardly any time to have a completely free one :)
     </p>
   
-    <form class="example-form" (ngSubmit)="onLogin()">
+    <form class="example-form" (ngSubmit)="onLogin()" *ngIf="!forgetPasswordField">
       <mat-form-field class="example-full-width">
         <input matInput placeholder="E-Mail" type="email" id="email" name="email" 
         ngModel [formControl]="email" required>
@@ -33,8 +33,27 @@
     </form>
   </section>
   
+  
+  <form *ngIf="forgetPasswordField" class="example-form" (ngSubmit)="onForgetPassword()">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="E-Mail" type="email" id="forgetemail" name="forgetemail" 
+      ngModel [formControl]="forgetemail" required>
+      <mat-error *ngIf="forgetemail.invalid">{{getForgetErrorMessage()}}</mat-error>
+    </mat-form-field>
+    <br/>
+    <button type="submit" mat-raised-button>Send Mail</button>
+  </form>
+  
   <div class="new-user">
-    <span>New user ?</span>
-    <a routerLink="/welcome-user/register" >Sign Up</a>
+    <div class="user-add-container">
+      <span>New user ?</span>
+      <a routerLink="/welcome-user/register" >Sign Up</a>
+    </div>
+    <button type="submit" mat-fab (click)="enableForgetFlag()" *ngIf="!forgetPasswordField">
+      <i class="material-icons">lock_open</i>
+    </button>
+    <button type="submit" mat-fab (click)="disableForgetFlag()" *ngIf="forgetPasswordField">
+      <i class="material-icons">keyboard_backspace</i>
+    </button>
   </div>
 </div>

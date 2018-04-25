@@ -9,7 +9,8 @@
     padding: 20px;
     @include container-size(100%,100%);
     box-sizing: border-box;
-    justify-content: space-around
+    justify-content: space-around;
+    background-image: url('/assets/patterns/welcome-pattern.png');
 }
 .icon-container{
     display: none;
@@ -32,11 +33,20 @@
     text-align: justify;
 }
 .new-user{
+    display:flex;
+    justify-content: space-around;
+    .user-add-container{
+        align-items: center;
+        display: flex;
+    }
     @extend %font;
     a{
         color:$white;
         
     }
+}
+.mat-fab{
+    background-color:$mat-fab-default;
 }
 .mat-form-field{
     width:100%;
@@ -66,6 +76,9 @@
         display:none;
     }
     .mat-raised-button{
+        background-color: $red-background;
+    }
+    .mat-fab{
         background-color: $red-background;
     }
     .new-user{

@@ -1,4 +1,33 @@
-<h3>Welcome user {{ userDetails.displayName }}</h3>
+<div class="user-container">
+  <header>
+    <div class="image-container">
+      <img [src]="profilePicture.url" alt="" srcset="">
+      <div class="filter-user-image"></div>
+    </div>
+    <div class="image-upload">
+      <i class="material-icons">camera_alt</i>
+      <input type="file" #profilePhoto (change)="updateUserProfilePicture($event.target.files)"/>
+    </div>
+    <span class="welcome-message">
+      WELCOME {{ userDetails.displayName }}
+    </span>
+  </header>
+  <section>
+    <input class="input-header" type="text" #displayNameInput 
+      [value]="userDetails.displayName" 
+      (blur)="updateUserDetails(displayNameInput,'displayName')"/>
+    <input class="input-header" type="text" #displayPhoneNumber 
+      [value]="userDetails.contact?userDetails.contact:''" 
+      (blur)="updateUserDetails(displayPhoneNumber,'contact')"/>
+    <textarea class="input-body" type="text" #displayAbout 
+      [value]="userDetails.about?userDetails.about:''" 
+      (blur)="updateUserDetails(displayAbout,'about')">
+    </textarea>
+     
+  </section>
+</div>
+
+<!-- <h3></h3>
 <input type="text" #displayNameInput 
   [value]="userDetails.displayName" 
   (blur)="updateUserDetails(displayNameInput,'displayName')"/>
@@ -15,16 +44,8 @@
   [value]="userDetails.contact?userDetails.contact:''" 
   (blur)="updateUserDetails(displayPhoneNumber,'contact')"/>
 
-<textarea type="text" #displayAbout 
-  [value]="userDetails.about?userDetails.about:''" 
-  (blur)="updateUserDetails(displayAbout,'about')">
-</textarea>
+
 
 
 <label>Update User profile picture</label>
-<input type="file" #profilePhoto (change)="updateUserProfilePicture($event.target.files)"/>
-
-<img [src]="profilePicture.url" alt="" srcset="">
-
-
-
+ -->

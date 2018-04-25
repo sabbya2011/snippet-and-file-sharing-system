@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthService } from '../../shared/services/auth.services';
 import { MsgService } from '../../shared/services/message.services';
 import { Router } from '@angular/router';
@@ -12,24 +12,43 @@ import {MatSnackBar} from '@angular/material';
   templateUrl: './signin.component.html',
   styleUrls: ['./signin.component.scss']
 })
-export class SigninComponent implements OnInit {
+export class SigninComponent {
 
-    
+    forgetPasswordField : boolean = false;
     email = new FormControl('', [Validators.required, Validators.email]);
     password = new FormControl('', [Validators.required]);
-
+    forgetemail = new FormControl('', [Validators.required, Validators.email]);
     constructor(private authService : AuthService,
       private msgService : MsgService,
       private router :Router,
       private snackBar : MatSnackBar ) { }
   
-    ngOnInit() {
+    enableForgetFlag(){
+      this.forgetPasswordField = true;
     }
-
+    disableForgetFlag(){
+      this.forgetPasswordField = false;
+    }
     getErrorMessage() {
       return this.email.hasError('required') ? this.msgService.needValue() :
           this.email.hasError('email') ? this.msgService.validMail() :
               '';
+    }
+    getForgetErrorMessage() {
+      return this.forgetemail.hasError('required') ? this.msgService.needValue() :
+          this.forgetemail.hasError('email') ? this.msgService.validMail() :
+              '';
+    }
+    onForgetPassword(){
+      this.authService.forgetPasswordUser(this.forgetemail.value)
+        .then(()=>{
+          const msg = this.msgService.passwordResetEmail();
+          this.showSnackBar(msg);
+        },
+      ()=>{
+        const msg = this.msgService.userDontExist();
+        this.showSnackBar(msg);
+      })
     }
     onLogin(){
       const email = this.email.value;

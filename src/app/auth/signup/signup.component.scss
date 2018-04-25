@@ -7,6 +7,7 @@
     flex-direction:column;
     padding: 20px;
     @include container-size(100%,100%);
+    background-image: url('/assets/patterns/welcome-pattern.png');
     box-sizing: border-box;
     justify-content: space-around
 }

@@ -50,7 +50,10 @@ export class AuthService{
         return true;
     }
     
-    
+    forgetPasswordUser(email:string){
+        return firebase.auth().sendPasswordResetEmail(email)
+    }
+
     loginUser(email:string,password:string){
         return this.signinInitializer(email,password)
             .catch((response)=>{

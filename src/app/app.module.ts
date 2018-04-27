@@ -24,6 +24,7 @@ import { PrivateStorageComponent } from './app-layout/private-storage/private-st
 import { SuggestionBoxComponent } from './app-layout/classroom/suggestion-box/suggestion-box.component';
 import { UserPersonalDetailsComponent } from './app-layout/user-personal-details/user-personal-details.component';
 
+import { MonacoEditorModule } from 'ngx-monaco-editor';
 
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatInputModule} from '@angular/material/input';
@@ -58,7 +59,9 @@ import {MatMenuModule} from '@angular/material/menu';
     MatSnackBarModule,
     MatInputModule,
     MatButtonModule,
-    MatMenuModule
+    MatMenuModule,
+
+    MonacoEditorModule.forRoot()
   ],
   providers: [
     AuthService,

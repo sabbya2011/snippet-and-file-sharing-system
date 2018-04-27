@@ -2,6 +2,20 @@
 @import '~assets/styles/responsive-breaks.scss';
 @import '~assets/styles/helper-css.scss';
 
+.monaco-private-snippet{
+    width: 100%;
+    background-color: $white;
+    background-image: url('/assets/icons/loader.svg');
+    background-repeat: no-repeat;
+    background-position: center; 
+    min-height: 30vh;
+    border: 0;
+    font-size: 15px;
+    padding: 0;
+    color: #919BA6;
+    box-shadow: 2px 2px 10px $sidebar-text;
+    border-radius: 5px;
+}
 .headerIconRight{
     display: inline-block;
     background: transparent;
@@ -153,6 +167,7 @@ app-user-management{
     border-right: 2px solid $action-focus-text;
     position: relative;
     .attachment-flags{
+        display: flex;
         position: absolute;
         right: 0;
         top: -15px;

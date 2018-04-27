@@ -78,6 +78,11 @@
                   *ngIf="checkSnippetFileAttached(snippet.attachFileName)">
                   <i class="material-icons flag-attach-view">attach_file</i>
                 </span>
+                <span class="attachment-added-flag" 
+                  (click)="downloadAttachedCode(snippet)"
+                  *ngIf="checkSnippetCodeAttached(snippet.snippetData)">
+                  <i class="material-icons flag-attach-view">code</i>
+                </span>
               </div>
               <span class="pending-user-name">{{snippet.header}}</span>
               <span class="pending-user-mail">{{snippet.body}}</span>
@@ -121,7 +126,8 @@
           <div class="form-group">
             <textarea class="input-body" id="snippet_body" placeholder="Note Details" name="snippet_body" ngModel></textarea>
           </div>
-
+          <ngx-monaco-editor name="private_create_code" class="monaco-private-snippet" 
+            [options]="editorOptions" ngModel></ngx-monaco-editor>
         </form>
       </div>
 
@@ -162,7 +168,10 @@
           <div class="form-group">
             <textarea class="input-body" id="snippet_body" placeholder="Note Details" name="snippet_body" formControlName="snippet_body"></textarea>
           </div> 
-
+          <ngx-monaco-editor id="private_snippet_code" 
+            formControlName="private_snippet_code" 
+            class="monaco-private-snippet" 
+            [options]="editorOptions"></ngx-monaco-editor>
         </form>
       </div>
       <div *ngIf="showSuggestionBox()" class="main-form-container">

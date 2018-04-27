@@ -19,6 +19,17 @@ export class PrivateStorageComponent implements OnInit {
   downloadFileOnEditFlag : boolean;
   editForm : FormGroup;
 
+  editorOptions = { 
+    theme: 'vs-light',
+    // lineNumbers: "off",
+	  // roundedSelection: true,
+    language: 'javascript',
+    automaticLayout:true 
+    // readOnly: true
+  };
+  
+  
+
 
   constructor(
     private authService : AuthService
@@ -52,12 +63,16 @@ export class PrivateStorageComponent implements OnInit {
     this.editForm = new FormGroup({
       'snippet_name': new FormControl(null),
       'snippet_body': new FormControl(null),
-      'attachedfile':new FormControl(null)
+      'attachedfile':new FormControl(null),
+      'private_snippet_code':new FormControl(null)
     });
   }
 
   checkSnippetFileAttached(flag){
     return (flag)?true:false;
+  }
+  checkSnippetCodeAttached(data){
+    return(data && data!="")?true:false;
   }
 
   getAttachFileName(){
@@ -148,11 +163,11 @@ export class PrivateStorageComponent implements OnInit {
     if(this.attach_file_details){
       attachFileName = this.attach_file_details.name;
     }
-
     const snippet = {
       header:form.value.snippet_name,
       body:form.value.snippet_body,
-      attachFileName:attachFileName
+      attachFileName:attachFileName,
+      snippetData:form.value.private_create_code
     };
     const pushKey = this.authService.findPushKey("privateKeep");
     this.authService.createPrivateSnippet(snippet,pushKey)
@@ -163,6 +178,7 @@ export class PrivateStorageComponent implements OnInit {
           }else{
             console.log("success");
             this.getUserPrivateSnippets();
+            this.resetSnippetDetails();
           }
         },
         (error)=>{
@@ -198,6 +214,7 @@ export class PrivateStorageComponent implements OnInit {
     this.editForm.patchValue({
       snippet_name:snippet.header,
       snippet_body : snippet.body,
+      private_snippet_code : snippet.snippetData
     });
     this.activeSnippetId = snippet.snippetId;
     this.onloadFileName = snippet.attachFileName;
@@ -211,6 +228,7 @@ export class PrivateStorageComponent implements OnInit {
     this.editForm.reset();
     this.showAction("viewnotes");
   }
+  
   updateSnippet(){
     if(this.activeSnippetId){
       let attachFileName = this.activeFileName;
@@ -220,6 +238,7 @@ export class PrivateStorageComponent implements OnInit {
       const snippet = {
         header:this.editForm.get("snippet_name").value,
         body:this.editForm.get("snippet_body").value,
+        snippetData:this.editForm.get("private_snippet_code").value,
         attachFileName:attachFileName?attachFileName:null
       };
       
@@ -267,6 +286,16 @@ export class PrivateStorageComponent implements OnInit {
       attachFileName:this.onloadFileName
     };
     this.downloadAttachedFile(snippet);
+  }
+  downloadAttachedCode(snippet){
+    const snippet_code = snippet.snippetData;
+    var dataStr = "data:text/javascript;charset=utf-8," + encodeURIComponent(snippet_code);
+    var dlAnchorElem = document.createElement("a");
+    dlAnchorElem.setAttribute("href",     dataStr     );
+    dlAnchorElem.setAttribute("download", "snippet.txt");
+    var mouseEvent  = document.createEvent("MouseEvents");
+    mouseEvent.initEvent("click", false, true);
+    dlAnchorElem.dispatchEvent(mouseEvent);
   }
   downloadAttachedFile(snippet){
     const snippet_key = snippet.snippetId;
